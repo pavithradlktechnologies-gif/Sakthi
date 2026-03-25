@@ -1,0 +1,38 @@
+<script>
+    const notyf = new Notyf({
+        position: { x: 'right', y: 'top' },
+        duration: 3000,
+        types: [
+            {
+                type: 'error',
+                background: '#FA5252',
+                icon: {
+                    className: 'fas fa-times',
+                    tagName: 'span',
+                    color: '#fff'
+                }
+            },
+            {
+                type: 'success',
+                background: '#4BB543',
+                icon: {
+                    className: 'fas fa-check',
+                    tagName: 'span',
+                    color: '#fff'
+                }
+            }
+        ]
+    });
+</script>
+
+{% if messages %}
+<script>
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            notyf.open({ type: 'success', message: "{{ message }}" });
+        {% elif message.tags == 'error' %}
+            notyf.open({ type: 'error', message: "{{ message }}" });
+        {% endif %}
+    {% endfor %}
+</script>
+{% endif %}

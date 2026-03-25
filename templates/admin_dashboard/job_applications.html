@@ -1,0 +1,110 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div class="d-block mb-4 mb-md-0">
+      <h2 class="h4">Job's Applications</h2>
+    </div>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <a href="{% url 'download_job_applications_excel' %}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+        <i class="bi bi-download"></i>&nbsp;&nbsp;Download Xl File
+      </a>
+    </div>
+  </div>
+
+  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <table id="myTable" class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>No.</th>
+          <th>Applicant Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Job Title</th>
+          <th>Applied On</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for data in applications %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              <span class="text-truncate d-inline-block" style="max-width: 160px;" title="{{ data.full_name }}">{{ data.full_name }}</span>
+            </td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.phone }}</td>
+            <td>
+              <span class="text-truncate d-inline-block" style="max-width: 150px;" title="{{ data.job.title }}">{{ data.job.title }}</span>
+            </td>
+            <td>{{ data.applied_on|date:'d M Y' }}</td>
+            <td>
+              
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#viewModal{{ data.id }}">
+                <i class="bi bi-eye"></i>
+              </button>
+              <a class="btn btn-pill btn-outline-success" href="{{ data.resume.url }}" target="_blank" title="Download Resume">
+                <i class="bi bi-download"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% for data in applications %}
+    <div class="modal fade" id="viewModal{{ data.id }}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ data.full_name }} | {{ data.phone }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="row fw-bold bg-light border-bottom m-0 p-2">
+              <div class="col-4">Field</div>
+              <div class="col-8">Details</div>
+            </div>
+            <div class="row border-bottom m-0 p-2">
+              <div class="col-4 fw-semibold">Job Title</div>
+              <div class="col-8">{{ data.job.title }}</div>
+            </div>
+            <div class="row border-bottom m-0 p-2">
+              <div class="col-4 fw-semibold">Email</div>
+              <div class="col-8">{{ data.email }}</div>
+            </div>
+            <div class="row border-bottom m-0 p-2">
+              <div class="col-4 fw-semibold">Current Location</div>
+              <div class="col-8">{{ data.current_location }}</div>
+            </div>
+            <div class="row border-bottom m-0 p-2">
+              <div class="col-4 fw-semibold">Total Experience</div>
+              <div class="col-8">{{ data.total_experience }}</div>
+            </div>
+            <div class="row border-bottom m-0 p-2">
+              <div class="col-4 fw-semibold">Highest Qualification</div>
+              <div class="col-8">{{ data.highest_qualification }}</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "searching": true,
+        "language": {
+          "emptyTable": "No applications found"
+        }
+      });
+    });
+  </script>
+{% endblock %}

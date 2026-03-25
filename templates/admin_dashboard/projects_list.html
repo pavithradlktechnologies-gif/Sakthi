@@ -1,0 +1,181 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<style>
+    .dataTables_filter {
+        float: right;
+        margin-bottom: 15px;
+    }
+    .dataTables_filter input {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 5px 15px;
+        margin-left: 10px;
+    }
+    /* Drag and Drop cursor */
+    #sortable-projects tr {
+        cursor: move;
+    }
+    .sortable-ghost {
+        opacity: 0.4;
+        background-color: #f1f1f1 !important;
+    }
+</style>
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+  <div>
+    <h2 class="h4">Projects List</h2>
+  </div>
+  <div>
+    <a href="{% url 'create_project' %}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">+ Add New Project</a>
+    
+    </a>
+  </div>
+</div>
+
+<div class="card card-body border-0 shadow table-wrapper table-responsive">
+  <table id="projectTable" class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>No</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Location</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="sortable-projects">
+      {% for data in datas %}
+      <tr data-id="{{ data.id }}">
+        <td class="index">{{ forloop.counter }}</td>
+        <td>
+          {% if data.image1 %}
+            <img src="{{ data.image1.url }}" style="width:100px; border-radius:6px;">
+          {% else %}
+            <span class="text-muted">No Image</span>
+          {% endif %}
+        </td>
+        <td><strong>{{ data.name }}</strong></td>
+        <td>{{ data.project_type|title }}</td>
+        <td>₹ {{ data.price }}</td>
+        <td>{{ data.location }}</td>
+        <td>
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_project' data.id %}">Edit</a>
+          {% if request.user.is_superuser %}
+             <a class="btn btn-sm btn-outline-info" href="{% url 'view_properties' data.id %}">View</a>
+             <a class="btn btn-sm btn-outline-danger delete-btn" href="#" data-url="{% url 'delete_project' data.id %}">Delete</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<br>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(document).ready(function () {
+    // 1. DataTable Logic (Ordering False for Drag-Drop compatibility)
+    var table = $('#projectTable').DataTable({
+        "searching": true,
+        "paging": false, 
+        "ordering": false, 
+        "info": false,
+        "lengthChange": false,
+        "language": {
+            "search": "Search Project:",
+            "emptyTable": "No Projects Found"
+        }
+    });
+
+    // 2. CSRF Token Helper
+    function getCSRFToken() {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, 10) === ('csrftoken' + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(10));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // 3. Drag and Drop + Order Success Alert
+    const tableBody = document.getElementById("sortable-projects");
+    if (tableBody) {
+        new Sortable(tableBody, {
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            onEnd: function () {
+                let order = [];
+                $('#sortable-projects tr').each(function(index) {
+                    order.push({
+                        id: $(this).data('id'),
+                        position: index + 1
+                    });
+                    $(this).find('.index').text(index + 1);
+                });
+
+                fetch("{% url 'update_project_order' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCSRFToken()
+                    },
+                    body: JSON.stringify(order)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Success Alert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Order changed successfully',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    // 4. Delete Logic (Using Event Delegation to keep it working after drag)
+    $(document).on('click', '.delete-btn', function (e) {
+        e.preventDefault();
+        const url = $(this).data('url');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This project will be deleted permanently!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}

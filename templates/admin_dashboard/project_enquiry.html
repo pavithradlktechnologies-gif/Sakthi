@@ -1,0 +1,244 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block content %}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+  <style>
+    .dataTables_filter {
+      float: right;
+      margin-bottom: 15px;
+    }
+    
+    .dataTables_filter input {
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      padding: 5px 15px;
+      margin-left: 10px;
+    }
+  </style>
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div>
+      <h2 class="h4">Project Enquiries</h2>
+    </div>
+    <div>
+      <a href="{% url 'download_enquiries_excel' %}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center"><i class="bi bi-download"></i>&nbsp;&nbsp;Download Excel</a>
+    </div>
+  </div>
+
+  <div class="card card-body border-0 shadow table-wrapper table-responsive">
+    <table id="enquiryTable" class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>No.</th>
+          <th>Project Name</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Budget</th>
+          <th>Messages</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for enquiry in enquiries %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              <strong>{{ enquiry.project.name }}</strong>
+            </td>
+            <td>{{ enquiry.full_name }}</td>
+            <td>{{ enquiry.email }}</td>
+            <td>{{ enquiry.mobile_number }}</td>
+            <td>{{ enquiry.budget }}</td>
+            <td>{{ enquiry.message|truncatechars:20|default:'-' }}</td>
+
+            <td>
+              <!-- Trigger Button -->
+
+              <button class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#viewEnquiryModal{{ enquiry.id }}">View</button>
+              <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger delete-btn" data-url="{% url 'delete_project_enquiry' enquiry.id %}">Delete</a>
+            </td>
+          </tr>
+
+          <!-- Modal Start -->
+          <div class="modal fade" id="viewEnquiryModal{{ enquiry.id }}" tabindex="-1" aria-labelledby="viewEnquiryModalLabel{{ enquiry.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-md">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="viewEnquiryModalLabel{{ enquiry.id }}">Enquiry Details</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                  <p>
+                    <strong>Project:</strong> {{ enquiry.project.name }}
+                  </p>
+                  <p>
+                    <strong>Full Name:</strong> {{ enquiry.full_name }}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {{ enquiry.email }}
+                  </p>
+                  <p>
+                    <strong>Mobile Number:</strong> {{ enquiry.mobile_number }}
+                  </p>
+                  <p>
+                    <strong>Budget:</strong> {{ enquiry.budget }}
+                  </p>
+
+                  {% if enquiry.message %}
+                    <p>
+                      <strong>Message:</strong><br />{{ enquiry.message }}
+                    </p>
+                  {% endif %}
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal End -->
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% for enquiry in enquiries %}
+    <div class="modal fade" id="viewModal{{ enquiry.id }}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Enquiry Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              <strong>Project:</strong> {{ enquiry.project.name }}
+            </p>
+            <p>
+              <strong>Name:</strong> {{ enquiry.full_name }}
+            </p>
+            <p>
+              <strong>Email:</strong> {{ enquiry.email }}
+            </p>
+            <p>
+              <strong>Mobile:</strong> {{ enquiry.mobile_number }}
+            </p>
+            <p>
+              <strong>Budget:</strong> {{ enquiry.budget }}
+            </p>
+            <p>
+              <strong>Date:</strong> {{ enquiry.created_at }}
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  <br />
+
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#enquiryTable').DataTable({
+        searching: true,
+        paging: true,
+        ordering: true,
+        info: false,
+        lengthChange: false,
+        language: {
+          search: 'Search Enquiry:',
+          emptyTable: 'No enquiries found'
+        }
+      })
+    })
+  </script>
+  <script>
+    $(document).on('click', '.delete-btn', function (e) {
+      e.preventDefault()
+      let deleteUrl = $(this).data('url')
+    
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This enquiry will be deleted permanently!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, Delete',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = deleteUrl
+        }
+      })
+    })
+  </script>
+<script>
+  $(document).ready(function () {
+
+    var searchContainer = $('.dataTables_filter');
+
+    if (searchContainer.length > 0) {
+
+      searchContainer.css({
+        'display': 'flex',
+        'align-items': 'center',
+        'justify-content': 'flex-end',
+        'gap': '100px',
+        'width': '100%',
+        'margin-bottom': '15px'
+      });
+
+      var filterHTML = `
+        <div id="sideFilterWrapper" style="display:flex; align-items:center; gap:10px;">
+          <label style="font-size:13px; font-weight:600; margin:0;">From:</label>
+          <input type="date" id="fromDate" style="border:1px solid #ccc; border-radius:5px; padding:4px 8px; font-size:12px; height:30px;">
+          
+          <label style="font-size:13px; font-weight:600; margin:0;">To:</label>
+          <input type="date" id="toDate" style="border:1px solid #ccc; border-radius:5px; padding:4px 8px; font-size:12px; height:30px;">
+          
+          <button id="btnFilter" style="background:#000; color:#fff; border:none; border-radius:5px; padding:5px 15px; cursor:pointer; font-size:12px; height:30px;">Filter</button>
+          <button id="btnReset" style="background:#000; border:none; color:#fff; cursor:pointer;font-size:12px; height:30px;border-radius:5px; padding:5px 15px;">Clear</button>
+        </div>
+      `;
+
+      searchContainer.prepend(filterHTML);
+
+      var table = $('#enquiryTable').DataTable();
+
+      $('#btnFilter').on('click', function () {
+        var from = $('#fromDate').val();
+        var to = $('#toDate').val();
+
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+          var rowDate = data[5] || ""; // Date column index check pannikkoenga
+          if (from === "" && to === "") return true;
+          if (from !== "" && rowDate < from) return false;
+          if (to !== "" && rowDate > to) return false;
+          return true;
+        });
+
+        table.draw();
+        $.fn.dataTable.ext.search.pop();
+      });
+
+      $('#btnReset').on('click', function () {
+        $('#fromDate').val('');
+        $('#toDate').val('');
+        table.draw();
+      });
+    }
+  });
+</script>
+{% endblock %}

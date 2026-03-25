@@ -1,0 +1,257 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block content %}
+
+        <!-- ===== Hero Section ===== -->
+        <section class="min-h-screen lg:min-h-[100vh] flex items-end relative overflow-hidden">
+            <!-- Background Video -->
+            <div class="absolute inset-0 z-0 overflow-hidden">
+                <video class="w-full h-full object-cover object-center" autoplay muted loop playsinline preload="auto"
+                    poster="https://your-cdn.com/hero-poster.webp">
+                    <source src="{% static 'videos/service.mp4' %}" type="video/webm">
+                    <source src="{% static 'videos/service.mp4' %}" type="video/mp4">
+                </video>
+
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+            </div>
+
+            <!-- Sakthi Property at Top - Fixed position immediately when scrolling starts -->
+            <div id="topBrand"
+                class="text-base md:text-lg font-medium tracking-widest uppercase transition-all duration-300 absolute top-4 left-0 right-0 z-30 flex justify-center opacity-100">
+                <a href="{% url 'index' %}" class="flex justify-center">
+                    <img class="w-30 h-10" id="logo2" src="{% static 'images/logo_home.webp' %}" alt="Sakthi Property Logo" />
+                </a>
+            </div>
+
+
+
+            <div class="container mx-auto px-6 pb-24 md:pb-32 lg:pb-40 relative z-10">
+                <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+                    <h1 id="typingText" class="font-display text-2xl md:text-4xl lg:text-5xl
+                   uppercase tracking-[0.20em] font-light
+                   text-ivory mb-6
+                   whitespace-nowrap overflow-hidden">
+                    </h1>
+                    <span id="cursor" class="text-ivory animate-pulse"></span>
+                </div>
+            </div>
+
+
+            <!-- Bottom Nav - Stays at bottom of hero section, always visible -->
+    <div class="absolute bottom-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-8 py-4 text-xs tracking-widest uppercase bg-transparent backdrop-blur-sm">
+      <!-- Left side - Hidden on mobile, shown on desktop -->
+      <div class="hidden md:flex gap-4 lg:gap-6 items-center text-ivory/80">
+        <a href="{% url 'index' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Home</a>
+        <a href="{% url 'about' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Who we are</a>
+        <a href="{% url 'properties' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Properties</a>
+        <a href="{% url 'services' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Services</a>
+        <a href="{% url 'blogs' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Blog</a>
+      </div>
+
+      <!-- Hamburger Icon for Bottom Nav on Mobile -->
+      <button onclick="toggleMobileMenu()" class="md:hidden flex items-center justify-center text-ivory" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Center - Empty space -->
+      <div class="text-lg font-medium invisible">Sakthi Property</div>
+
+      <!-- Right side - Hidden on mobile, shown on desktop -->
+      <div class="hidden md:flex gap-4 lg:gap-6 text-ivory/80">
+        <a href="{% url 'new_development' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">New Development</a>
+        <a href="{% url 'contact_us' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Contact Us</a>
+      </div>
+      <!-- Search Icon for Bottom Nav on Mobile -->
+      <button class="md:hidden flex items-center justify-center text-ivory" aria-label="Search">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </button>
+    </div>
+
+        </section>
+
+        <!-- ==== Services ==== -->
+        <section class="bg-white py-20 px-5 font-sans">
+            <div class="max-w-7xl mx-auto">
+                <span
+                    class="inline-flex items-center gap-2 text-sm text-neutral-600 border border-neutral-200 rounded-full px-4 py-1 mb-4">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    Our Services
+                </span>
+                <!-- Title -->
+                <h2 class="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-14">
+                    Build a Strong Foundation <br />
+                    for Your Investment
+                </h2>
+
+                <!-- Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    <!-- Card 1 -->
+                    <div>
+                        <img src="{% static 'images/service/realestate.webp' %}" class="w-full h-64 object-cover rounded-2xl mb-6" />
+                        <h3 class="text-lg font-semibold mb-2">Residential Apartments</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Experience an elevated way of living with elegantly designed apartments that blend modern
+                            architecture, thoughtful amenities, and sophisticated comfort crafted to reflect your
+                            individuality and lifestyle.
+                        </p>
+
+                    </div>
+
+                    <!-- Card 2 (Center Highlight) -->
+                    <div class="lg:translate-y-10">
+                        <h3 class="text-lg font-semibold ">Exclusive Residential Plots and Premium Flats</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Handpicked luxury plots and high-end apartments
+                            Prime locations with superior connectivity
+                            Limited-inventory projects ensuring exclusivity
+                        </p>
+
+                        <img src="{% static 'images/service/plots.webp' %}" class="w-full h-80 object-cover rounded-2xl mb-2" />
+
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div>
+                        <img src="{% static 'images/service/farm.webp' %}" class="w-full h-64 object-cover rounded-2xl mb-6" />
+                        <h3 class="text-lg font-semibold mb-2">Farm Lands</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Explore fertile farmlands ideal for organic farming, mango cultivation, and eco-friendly
+                            living. Each plot combines natural beauty, legal transparency, and sustainable investment
+                            value for a prosperous future.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    <!-- Card 1 -->
+                    <div>
+                        <img src="{% static 'images/service/Documentation.webp' %}" class="w-full h-64 object-cover rounded-2xl mb-6" />
+                        <h3 class="text-lg font-semibold mb-2">Seamless Legal and Documentation Excellence</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            End-to-end handling of legal verification and approvals
+                            Flawless execution of registration and ownership transfer
+                            Absolute transparency and confidentiality
+                        </p>
+
+                    </div>
+
+                    <!-- Card 2 (Center Highlight) -->
+                    <div class="lg:translate-y-10">
+                        <h3 class="text-lg font-semibold ">Elite Home Finance Assistance</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Priority support with leading banks and financial institutions
+                            Tailored home loan solutions with minimal processing time
+                            Dedicated relationship management
+                        </p>
+
+                        <img src="{% static 'images/service/Finance.webp' %}" class="w-full h-80 object-cover rounded-2xl mb-2" />
+
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div>
+                        <img src="{% static 'images/service/Visits.webp' %}" class="w-full h-64 object-cover rounded-2xl mb-6" />
+                        <h3 class="text-lg font-semibold mb-2">Curated Private Site Visits</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Scheduled, guided site visits for a refined experience
+                            Detailed walkthrough of amenities, layout, and surroundings
+                            One-on-one attention from our property experts
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                    <!-- Card 1 -->
+                    <div>
+                        <img src="{% static 'images/service/Layout.webp' %}" class="w-full h-64 object-cover rounded-2xl mb-6" />
+                        <h3 class="text-lg font-semibold mb-2">Signature Layout Development</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            RERA / DTCP / CMDA approved luxury layouts
+                            Premium roads, landscaped avenues and modern infrastructure
+                            Thoughtfully planned spaces with superior finishing
+                        </p>
+
+                    </div>
+
+                    <!-- Card 2 (Center Highlight) -->
+                    <div class="lg:translate-y-10">
+                        <h3 class="text-lg font-semibold ">Strategic Property Investment Advisory</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Insight-driven investment opportunities
+                            High-growth locations with strong appreciation potential
+                            Portfolio advisory for discerning investors
+                        </p>
+
+                        <img src="{% static 'images/service/investment.webp' %}" class="w-full h-80 object-cover rounded-2xl mb-2" />
+
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div>
+                        <img src="{% static 'images/service/support.webp' %}" class="w-full h-64 object-cover rounded-2xl mb-6" />
+                        <h3 class="text-lg font-semibold mb-2">White-Glove After-Sales Support</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Continued assistance beyond purchase
+                            Utility connections, documentation follow-ups and support services
+                            Dedicated care for a hassle-free ownership experience
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const text = "Our Services";
+            const typingEl = document.getElementById("typingText");
+            const cursor = document.getElementById("cursor");
+
+            let index = 0;
+            const speed = 120; // typing speed
+
+            function type() {
+                if (index < text.length) {
+                    typingEl.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, speed);
+                } else {
+                    // Stop cursor blink
+                    cursor.classList.add("hidden");
+
+                    // Fade out after typing finishes
+                    setTimeout(() => {
+                        typingEl.classList.add("transition-opacity", "duration-1000", "opacity-0");
+                    }, 800);
+
+                    // Remove completely
+                    setTimeout(() => {
+                        typingEl.parentElement.classList.add("hidden");
+                    }, 1800);
+                }
+            }
+
+            type();
+        });
+    </script>
+
+{% endblock %}

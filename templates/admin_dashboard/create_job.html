@@ -1,0 +1,94 @@
+{% extends "admin_dashboard/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Page Title -->
+    <h3 class="mb-3">
+        {% if form.instance.pk %}
+            Edit Job
+        {% else %}
+            Add New Job
+        {% endif %}
+    </h3>
+
+    <!-- FORM START -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Job Title</label>
+                        {{ form.title }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Location</label>
+                        {{ form.location }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Job Type</label>
+                        {{ form.job_type }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Category</label>
+                        {{ form.category }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Experience Required</label>
+                        {{ form.experience_required }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Salary Range</label>
+                        {{ form.salary_range }}
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Job Summary</label>
+                        {{ form.job_summary }}
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Roles & Responsibilities</label>
+                        {{ form.roles_responsibilities }}
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Skills Required</label>
+                        {{ form.skills_required }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Status</label>
+                        {{ form.status }}
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary px-4 mt-3" type="submit">
+                    {% if form.instance.pk %}
+                        Update Job
+                    {% else %}
+                        Add Job
+                    {% endif %}
+                </button>
+
+                <a href="{% url 'job_list' %}" class="btn btn-secondary px-4 mt-3">Cancel</a>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

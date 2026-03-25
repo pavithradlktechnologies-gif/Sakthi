@@ -1,0 +1,381 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block content %}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div>
+        <h2 class="h4">Create Project</h2>
+    </div>
+</div>
+
+<div class="container mt-4">
+<form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+{% csrf_token %}
+
+
+<div class="row g-3">
+
+
+<!-- Project Name -->
+<div class="col-md-6">
+<label class="form-label">Project Name&nbsp;<span style="color: red;">*</span></label>
+<input type="text" name="name" class="form-control" value="{{ project.name|default:'' }}" required>
+</div>
+
+
+<div class="col-md-3">
+<label class="form-label">Project Configuration&nbsp;<span style="color: red;">*</span></label>
+<input type="text" name="project_config" class="form-control" value="{{ project.project_config|default:'' }}" required>
+</div>
+
+
+
+<!-- Project Type -->
+<div class="col-md-3">
+    <label class="form-label">Project Type&nbsp;<span style="color: red;">*</span></label>
+<select name="project_type" id="projectTypeSelect" required class="form-control" onchange="toggleFloorPlan()">
+    <option value="">Select</option>
+    
+    <option value="apartment" {% if project.project_type == "apartment" %}selected{% endif %}>
+        Apartment
+    </option>
+    
+    <option value="villa" {% if project.project_type == "villa" %}selected{% endif %}>
+        Villa
+    </option>
+    
+    <option value="plot" {% if project.project_type == "plot" %}selected{% endif %}>
+        Plot
+    </option>
+    
+    <option value="form_land" {% if project.project_type == "form_land" %}selected{% endif %}>
+        Form Land
+    </option>
+    
+    <option value="form_house" {% if project.project_type == "form_house" %}selected{% endif %}>
+        Form House
+    </option>
+</select>
+</div>
+
+<!-- Price -->
+
+<div class="col-md-4">
+<label class="form-label">Project Status&nbsp;<span style="color: red;">*</span></label>
+<select name="project_status" class="form-control" required>
+<option value="">Select</option>
+<option value="ongoing" {% if project.project_status == "ongoing" %}selected{% endif %}>Ongoing</option>
+<option value="completed" {% if project.project_status == "completed" %}selected{% endif %}>Completed</option>
+<option value="up_comming" {% if project.project_status == "up_comming" %}selected{% endif %}>Up Comming</option>
+</select>
+
+</div>
+<div class="col-md-4">
+<label class="form-label">Price</label>
+<input type="number" name="price" class="form-control" value="{{ project.price|default:'' }}">
+</div>
+
+<!-- Location -->
+<div class="col-md-4">
+<label class="form-label">Location&nbsp;<span style="color: red;">*</span></label>
+<input type="text" name="location" class="form-control" value="{{ project.location|default:'' }}" required>
+</div>
+
+<!-- Full Location -->
+<div class="col-md-12">
+<label class="form-label">Full Location&nbsp;<span style="color: red;">*</span></label>
+<textarea name="full_location" class="form-control" required>{{ project.full_location|default:'' }}</textarea>
+</div>
+
+
+<div class="col-md-12">
+<label class="form-label">Description </label>
+<textarea name="description" rows="5" class="form-control" required>{{ project.description|default:'' }}</textarea>
+</div>
+
+<div class="row g-3 mt-3">
+
+  <!-- TOTAL UNITS -->
+  <div class="col-md-4">
+    <label>Total Units&nbsp;<span style="color: red;">*</span></label>
+    <input type="number" name="total_units" class="form-control"
+           value="{{ project.total_units|default:'' }}" required>
+  </div>
+
+  <!-- SOLD UNITS -->
+  <div class="col-md-4">
+    <label>Sold Units&nbsp;<span style="color: red;">*</span></label>
+    <input type="number" name="sold_units" class="form-control"
+           value="{{ project.sold_units|default:'' }}" required>
+  </div>
+
+  <!-- CONSTRUCTION STATUS -->
+  <div class="col-md-4">
+    <label>Construction Status (%)&nbsp;<span style="color: red;">*</span></label>
+    <input type="number" name="construction_status" class="form-control"
+           value="{{ project.construction_status|default:'' }}" required>
+  </div>
+
+</div>
+
+<!-- Video -->
+<div class="col-md-6">
+<label class="form-label">Project Video&nbsp;<span style="color: red;">*</span></label>
+<input type="file" name="project_video" class="form-control">
+</div>
+
+<!-- Brochure -->
+<div class="col-md-6">
+<label class="form-label">Brochure&nbsp;<span style="color: red;">*</span></label>
+<input type="file" name="brochure" class="form-control">
+</div>
+
+<!-- Images -->
+<div class="col-md-4">
+<label>Image 1&nbsp;<span style="color: red;">*</span></label><br>
+{% if project.image1 %}<img src="{{ project.image1.url }}" height="80"><br>{% endif %}
+<input type="file" name="image1" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Image 2&nbsp;<span style="color: red;">*</span></label><br>
+{% if project.image2 %}<img src="{{ project.image2.url }}" height="80"><br>{% endif %}
+<input type="file" name="image2" class="form-control">
+</div>
+
+<div class="col-md-4">
+<label>Image 3&nbsp;<span style="color: red;">*</span></label><br>
+{% if project.image3 %}<img src="{{ project.image3.url }}" height="80"><br>{% endif %}
+<input type="file" name="image3" class="form-control">
+</div>
+
+<!-- Google Map -->
+<div class="col-md-12">
+<label class="form-label">Google Map&nbsp;<span style="color: red;">*</span></label>
+<textarea name="google_map_location" class="form-control" required>{{ project.google_map_location|default:'' }}</textarea>
+</div>
+
+<!-- Amenities -->
+<div class="col-md-12">
+  <label class="form-label">
+    Amenities&nbsp;<span style="color: red;">*</span>
+  </label>
+
+  <div class="row">
+    {% for amenity in amenities %}
+      <div class="col-md-4 col-sm-6 mb-2">
+        <div class="form-check">
+          <input 
+            type="checkbox" 
+            name="amenities" 
+            value="{{ amenity.id }}" 
+            class="form-check-input"
+            id="amenity{{ amenity.id }}"
+            {% if amenity in project.amenities.all %}checked{% endif %}
+          >
+          <label class="form-check-label" for="amenity{{ amenity.id }}">
+            {{ amenity.name }}
+          </label>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+
+<div id="floorPlanSection" style="display: none;">
+    <hr>
+    <h5>Floor Plans</h5>
+    
+    <div class="row mb-3">
+        {% for fp in floor_plans %}
+        <div class="col-md-3 text-center">
+            <img src="{{ fp.image.url }}" class="img-fluid mb-2" style="height:120px;"><br>
+            <input type="checkbox" name="delete_floor" value="{{ fp.id }}">
+            <small>Delete</small>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="floor-container">
+        <div class="row mb-2">
+            <div class="col-md-10">
+                <input type="file" name="floor_plans" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-primary mb-3" onclick="addFloor()">+ Add Floor</button>
+</div>
+<!-- GALLERY -->
+<hr>
+<h5>Gallery &nbsp;<span style="color: red;">*</span></h5>
+
+<div class="row mb-3">
+{% for img in gallery %}
+<div class="col-md-3 text-center">
+    <img src="{{ img.image.url }}" class="img-fluid mb-2" style="height:120px;"><br>
+
+    <!-- DELETE CHECKBOX -->
+    <input type="checkbox" name="delete_gallery" value="{{ img.id }}">
+    <small>Delete</small>
+</div>
+{% endfor %}
+</div>
+
+<div id="gallery-container">
+<div class="row mb-2">
+<div class="col-md-10">
+<input type="file" name="gallery" class="form-control">
+</div>
+<div class="col-md-2">
+<button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+</div>
+</div>
+</div>
+
+<button type="button" class="btn btn-primary mb-3" onclick="addGallery()">+ Add Gallery</button>
+<!-- LOCATION ADVANTAGES -->
+<hr>
+<h5>Location Advantages&nbsp;<span style="color: red;">*</span></h5>
+
+<div id="adv-container">
+
+{% for adv in advantages %}
+<div class="row mb-2">
+
+  <!-- CATEGORY -->
+  <div class="col-md-4">
+    <select name="adv_category" class="form-control">
+      {% for cat in categories %}
+        <option value="{{ cat.id }}"
+          {% if adv.category.id == cat.id %}selected{% endif %}>
+          {{ cat.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- TITLE -->
+  <div class="col-md-4">
+    <input type="text" name="adv_title" class="form-control"
+           value="{{ adv.title }}">
+  </div>
+
+  <!-- DISTANCE -->
+  <div class="col-md-3">
+    <input type="text" name="adv_distance" class="form-control"
+           value="{{ adv.distance }}">
+  </div>
+
+  <!-- REMOVE -->
+  <div class="col-md-1">
+    <button type="button" class="btn btn-danger w-100"
+            onclick="removeRow(this)">X</button>
+  </div>
+
+</div>
+{% endfor %}
+
+</div>
+
+<button type="button" class="btn btn-primary mb-3" onclick="addAdvantage()">+ Add Advantage</button>
+
+<div class="text-center">
+<button type="submit" class="btn btn-success">Save Project</button>
+</div>
+
+</form>
+</div>
+
+<script>
+function validateForm(){
+let name=document.querySelector('[name="name"]').value;
+if(name.trim()==""){alert("Enter Project Name");return false;}
+return true;
+}
+
+function addFloor(){
+document.getElementById('floor-container').insertAdjacentHTML('beforeend',`
+<div class="row mb-2">
+<div class="col-md-10">
+<input type="file" name="floor_plans" class="form-control">
+</div>
+<div class="col-md-2">
+<button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+</div>
+</div>`);
+}
+
+function addGallery(){
+document.getElementById('gallery-container').insertAdjacentHTML('beforeend',`
+<div class="row mb-2">
+<div class="col-md-10">
+<input type="file" name="gallery" class="form-control">
+</div>
+<div class="col-md-2">
+<button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+</div>
+</div>`);
+}
+
+function addAdvantage(){
+
+  let categoryOptions = `
+    {% for cat in categories %}
+      <option value="{{ cat.id }}">{{ cat.name }}</option>
+    {% endfor %}
+  `;
+
+  let html = `
+  <div class="row mb-2">
+
+    <div class="col-md-4">
+      <select name="adv_category" class="form-control">
+        ${categoryOptions}
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <input type="text" name="adv_title" class="form-control" placeholder="Place Name">
+    </div>
+
+    <div class="col-md-3">
+      <input type="text" name="adv_distance" class="form-control" placeholder="Distance">
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" class="btn btn-danger w-100" onclick="removeRow(this)">X</button>
+    </div>
+
+  </div>
+  `;
+
+  document.getElementById('adv-container').insertAdjacentHTML('beforeend', html);
+}
+
+
+function removeRow(btn){
+  btn.closest('.row').remove();
+}
+
+</script>
+<script>
+function toggleFloorPlan() {
+    var projectType = document.getElementById("projectTypeSelect").value;
+    var floorSection = document.getElementById("floorPlanSection");
+    
+    if (projectType === "apartment") {
+        floorSection.style.display = "block";
+    } else {
+        floorSection.style.display = "none";
+    }
+}
+
+// Page load aagum podhu check panna (Edit mode-kaga)
+window.onload = toggleFloorPlan;
+</script>
+
+{% endblock %}

@@ -1,0 +1,554 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+  <!-- ===== Hero Section ===== -->
+  <section class="min-h-screen lg:min-h-[100vh] flex items-end relative overflow-hidden">
+    <!-- Background Video -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <video class="w-full h-full object-cover object-center" autoplay muted loop playsinline preload="auto" poster="{% static 'images/hero-poster.webp' %}">
+        <source src="{% static 'videos/home.mp4' %}" type="video/mp4" />
+      </video>
+
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+    </div>
+
+    <!-- Sakthi Property at Top - Fixed position immediately when scrolling starts -->
+    <div id="topBrand" class="text-base md:text-lg font-medium tracking-widest uppercase transition-all duration-300 absolute top-4 left-0 right-0 z-30 flex justify-center opacity-100">
+      <a href="{% url 'index' %}" class="flex justify-center"><img class="w-30 h-10" id="logo2" src="{% static 'images/logo_home.webp' %}" alt="Sakthi Property Logo" /></a>
+    </div>
+
+    <div class="container mx-auto px-6 pb-24 md:pb-32 lg:pb-40 relative z-10">
+      <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+        <h1 class="font-display text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.20em] font-light text-ivory mb-6">Building Spaces Where Life Feels Beautiful</h1>
+
+        <p class="text-base md:text-lg text-ivory/80 mb-10 tracking-wide">Crafting beautiful, joyful spaces with strong foundations and lasting trust.</p>
+
+        <a href="{% url 'properties' %}" class="inline-flex items-center gap-3 border border-ivory/60 text-ivory px-10 py-4 rounded-full uppercase tracking-widest text-sm font-medium hover:bg-ivory hover:text-charcoal transition-all duration-300">Begin Your Journey</a>
+      </div>
+    </div>
+
+    <!-- Bottom Nav - Stays at bottom of hero section, always visible -->
+    <div class="absolute bottom-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-8 py-4 text-xs tracking-widest uppercase bg-transparent backdrop-blur-sm">
+      <!-- Left side - Hidden on mobile, shown on desktop -->
+      <div class="hidden md:flex gap-4 lg:gap-6 items-center text-ivory/80">
+        <a href="{% url 'index' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Home</a>
+        <a href="{% url 'about' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Who we are</a>
+        <a href="{% url 'properties' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Properties</a>
+        <a href="{% url 'services' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Services</a>
+        <a href="{% url 'blogs' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Blog</a>
+      </div>
+
+      <!-- Hamburger Icon for Bottom Nav on Mobile -->
+      <button onclick="toggleMobileMenu()" class="md:hidden flex items-center justify-center text-ivory" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Center - Empty space -->
+      <div class="text-lg font-medium invisible">Sakthi Property</div>
+
+      <!-- Right side - Hidden on mobile, shown on desktop -->
+      <div class="hidden md:flex gap-4 lg:gap-6 text-ivory/80">
+        <a href="{% url 'new_development' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">New Development</a>
+        <a href="{% url 'contact_us' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Contact Us</a>
+      </div>
+      <!-- Search Icon for Bottom Nav on Mobile -->
+<a href="{% url "properties" %}" class="md:hidden flex items-center justify-center text-ivory" aria-label="Home">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+      d="M3 10.5L12 3l9 7.5M5 10v10h5v-6h4v6h5V10" />
+  </svg>
+</a>
+    </div>
+  </section>
+
+  <!-- ==== About us ==== -->
+  <section class="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Top Content -->
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12 mb-14">
+        <!-- Left -->
+        <div>
+          <span class="inline-flex items-center gap-2 text-sm text-neutral-600 border border-neutral-200 rounded-full px-4 py-1 mb-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+            Our Legacy
+          </span>
+          <h2 class="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight">Crafted for a Life of Distinction</h2>
+        </div>
+
+        <!-- Right -->
+        <div class="max-w-xl text-neutral-600 text-base leading-relaxed">
+          <p>With a commanding presence built on trust, precision, and vision, Sakthi Property has emerged as a distinguished name in the world of premium real estate. Rooted in excellence and guided by uncompromising standards, we stand among the most respected developers for crafting residences that go beyond mere living spaces.</p>
+        </div>
+      </div>
+
+      <!-- videos -->
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Item 06 -->
+        <div class="rounded-xl overflow-hidden bg-black">
+          <video class="w-full h-full object-cover" autoplay muted loop playsinline preload="metadata">
+            <source src="{% static 'videos/h4.mp4' %}" type="video/mp4" />
+          </video>
+        </div>
+
+        <!-- Item 07 (col-span-2) -->
+        <div class="col-span-2 rounded-xl overflow-hidden bg-black">
+          <video class="w-full h-full object-cover" autoplay muted loop playsinline preload="metadata">
+            <source src="{% static 'videos/h3.mp4' %}" type="video/mp4" />
+          </video>
+        </div>
+
+        <!-- Item 04 (col-span-2) -->
+        <div class="col-span-2 rounded-xl overflow-hidden bg-black">
+          <video class="w-full h-full object-cover" autoplay muted loop playsinline preload="metadata">
+            <source src="{% static 'videos/h2.mp4' %}" type="video/mp4" />
+          </video>
+        </div>
+
+        <!-- Item 05 -->
+        <div class="rounded-xl overflow-hidden bg-black">
+          <video class="w-full h-full object-cover" autoplay muted loop playsinline preload="metadata">
+            <source src="{% static 'videos/h1.mp4' %}" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- First One -->
+  <section class="bg-white py-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Left Content -->
+        <div>
+          <h2 class="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight mb-6">
+            Making Every<br class="hidden sm:block" />
+            Home Feel Special
+          </h2>
+
+          <p class="text-neutral-600 text-base text-justify leading-relaxed mb-4 max-w-xl">Each Sakthi Property development is thoughtfully designed for a discerning clientele those who seek refinement, exclusivity, and enduring value. Our homes are not created for the masses, but for individuals who appreciate architectural finesse, legal transparency, and elevated living.</p>
+
+          <p class="text-neutral-600 text-base text-justify leading-relaxed mb-8 max-w-xl">Driven by integrity and reinforced by industry-leading construction benchmarks, Sakthi Property continues to shape residences that redefine luxury where craftsmanship meets legacy, and every detail reflects timeless sophistication.</p>
+
+          <!-- Button -->
+          <a href="{% url 'about' %}" class="inline-flex items-center gap-3 border border-emerald-700 text-emerald-700 rounded-full px-6 py-3 text-sm font-medium hover:bg-emerald-700 hover:text-white transition">
+            <span class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-700 text-white">↗</span>
+            Learn More
+          </a>
+        </div>
+
+        <!-- Right Image -->
+        <div class="lazy-video relative rounded-2xl overflow-hidden">
+          <video src="{% static 'videos/joyfull.mp4' %}" autoplay muted loop playsinline preload="none" class="w-full h-[250px] sm:h-[350px] md:h-[410px] lg:h-[450px] object-cover"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seconda one -->
+  <section class="bg-white py-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Right Image -->
+        <div class="relative rounded-2xl overflow-hidden">
+          <video src="{% static 'videos/life_style.mp4' %}" autoplay muted loop playsinline class="w-full h-[250px] sm:h-[350px] md:h-[410px] lg:h-[450px] object-cover"></video>
+        </div>
+
+        <!-- Left Content -->
+        <div>
+          <h2 class="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight mb-6">
+            Delightful Spaces <br class="hidden sm:block" />
+            Crafted with Beauty and Trust
+          </h2>
+
+          <p class="text-neutral-600 text-base text-justify leading-relaxed mb-4 max-w-xl">We create delightful and beautiful homes that are built on a truly trustworthy foundation of quality and care. Every space is thoughtfully designed to bring comfort, joy, and long-lasting value, blending elegant architecture with reliable construction practices. With a transparent approach and attention to every detail, we deliver homes that feel warm, secure, and welcoming spaces you can trust and enjoy for years to come.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Our Projects ===== -->
+  <section class="bg-[#23263d] py-16">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <span class="text-soft-gold font-semibold tracking-widest uppercase">Our Portfolio</span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-4">Visit Your Properties</h2>
+    </div>
+    <!-- Filter Bar -->
+    <div class="max-w-7xl mx-auto px-6 mb-12">
+      <div class="flex flex-wrap justify-center gap-10 text-xs md:text-sm uppercase tracking-[0.25em]">
+        <button data-filter="all" class="filter-btn border-b border-black pb-2 text-white">All</button>
+
+        <button data-filter="ongoing" class="filter-btn text-gray-400 hover:text-white transition">Ongoing</button>
+
+        <button data-filter="up_comming" class="filter-btn text-gray-400 hover:text-white transition">Up Coming</button>
+
+        <button data-filter="completed" class="filter-btn text-gray-400 hover:text-white transition">Completed</button>
+      </div>
+    </div>
+
+    <!-- Property Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2 px-6">
+      {% for i in data %}
+        <a data-category="{{ i.project_status }}" href="{% url 'view_properties' i.id %}" class="project-card group relative h-[520px] overflow-hidden rounded-2xl">
+          <!-- Image -->
+          <img src="{{ i.image1 }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+          <!-- TOP BADGE -->
+          <div class="absolute top-5 left-5 z-10">
+            <span class="inline-block bg-white/90 backdrop-blur-md text-black text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full shadow-lg">{{ i.project_type }}</span>
+          </div>
+
+          <!-- Bottom Content -->
+          <div class="absolute bottom-10 w-full text-center text-white px-4">
+            <h3 class="text-xl md:text-2xl font-light mb-2">{{ i.name }}</h3>
+            <p class="uppercase tracking-widest text-xs text-white/80 mb-1">{{ i.project_config }}</p>
+          </div>
+        </a>
+        
+      {% endfor %}
+    </div>
+    <div id="noResultsMsg" class="hidden text-center py-10 text-gray-300 text-lg tracking-widest">
+  NO PROJECTS FOUND
+</div>
+
+    <div class="flex justify-center items-center mt-10">
+      <a href="{% url 'properties' %}" class="px-10 py-3 border border-white/60 rounded-full text-white uppercase tracking-widest text-sm font-medium hover:bg-white hover:text-[#1c1f2a] transition-all duration-300">View All Listings</a>
+    </div>
+  </section>
+
+  <!-- ==== Services ==== -->
+  <section class="bg-white py-20 px-5 font-sans">
+    <div class="max-w-7xl mx-auto">
+      <span class="inline-flex items-center gap-2 text-sm text-neutral-600 border border-neutral-200 rounded-full px-4 py-1 mb-4">
+        <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+        Our Services
+      </span>
+      <!-- Title -->
+      <h2 class="text-4xl md:text-5xl font-semibold text-gray-900 leading-tight mb-14">
+        Build a Strong Foundation <br />
+        for Your Investment
+      </h2>
+
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <!-- Card 1 -->
+        <div>
+          <img src="{% static 'images/realestate.webp' %}" class="w-full h-64 object-cover rounded-2xl mb-6" />
+          <h3 class="text-lg font-semibold mb-2">Residential Apartments</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Experience an elevated way of living with elegantly designed apartments that blend modern architecture, thoughtful amenities, and sophisticated comfort crafted to reflect your individuality and lifestyle.</p>
+        </div>
+
+        <!-- Card 2 (Center Highlight) -->
+        <div class="lg:translate-y-10">
+          <h3 class="text-lg font-semibold">Residential Plots</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">We transform expansive land parcels into approved, well-planned residential layouts with clear documentation and superior infrastructure across South India ensuring trust, accessibility, and long-term growth.</p>
+
+          <img src="{% static 'images/plots.webp' %}" class="w-full h-80 object-cover rounded-2xl mb-2" />
+        </div>
+
+        <!-- Card 3 -->
+        <div>
+          <img src="{% static 'images/farm.webp' %}" class="w-full h-64 object-cover rounded-2xl mb-6" />
+          <h3 class="text-lg font-semibold mb-2">Farm Lands</h3>
+          <p class="text-gray-600 text-sm leading-relaxed mb-4">Explore fertile farmlands ideal for organic farming, mango cultivation, and eco-friendly living. Each plot combines natural beauty, legal transparency, and sustainable investment value for a prosperous future.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== Life style ==== -->
+
+  <section class="relative w-full h-screen overflow-hidden bg-black">
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+      <source src="{% static 'videos/living.mp4' %}" type="video/mp4" />
+    </video>
+
+    <!-- Dark Luxury Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/20"></div>
+  </section>
+
+  <!-- statistcs -->
+  <section class="bg-[#f6f7f8] py-20 px-5">
+    <div class="max-w-7xl mx-auto">
+      <span class="inline-flex items-center gap-2 text-sm text-neutral-600 border border-neutral-200 rounded-full px-4 py-1 mb-4">
+        <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+        Why Choose Us
+      </span>
+      <!-- HEADER -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-14">
+        <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 leading-tight">
+          Commitment to Quality and <br />
+          Trustworthiness
+        </h2>
+
+        <p class="text-gray-600 max-w-xl leading-relaxed">Discover real-time market trends and data-driven insights designed to empower buyers, sellers, and investors. Our in-depth analysis transforms complex data into clear intelligence, enabling confident decisions, strategic planning, and long-term value creation in an ever-evolving real estate landscape.</p>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- IMAGE CARD -->
+        <div class="lg:col-span-2 rounded-3xl overflow-hidden">
+          <img src="{% static 'images/about1.webp' %}" alt="Luxury Property" class="w-full h-full object-cover" />
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="grid grid-cols-2 gap-6">
+          <!-- CARD -->
+          <div class="bg-white rounded-3xl flex flex-col justify-center items-center py-10">
+            <h3 class="text-4xl font-semibold text-gray-900">40+</h3>
+            <p class="text-gray-600 mt-2">Years of Experience</p>
+          </div>
+
+          <!-- DARK CARD -->
+          <div class="bg-[#1c1c1c] rounded-3xl flex flex-col justify-center items-center py-10 text-white">
+            <h3 class="text-4xl font-semibold">100%</h3>
+
+            <p class="text-gray-300 mt-2">Customer Satisfaction</p>
+          </div>
+
+          <!-- CARD -->
+          <div class="bg-white rounded-3xl flex flex-col justify-center items-center py-10">
+            <h3 class="text-4xl font-semibold text-gray-900">5000+</h3>
+            <p class="text-gray-600 mt-2">Happy Clients</p>
+          </div>
+          <div class="bg-white rounded-3xl flex flex-col justify-center items-center py-10">
+            <h3 class="text-4xl font-semibold text-gray-900">18+</h3>
+            <p class="text-gray-600 mt-2">Companies</p>
+          </div>
+
+          <!-- CARD -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==== Blog section ==== -->
+
+  <section class="bg-white py-20 px-5">
+    <div class="max-w-7xl mx-auto">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <span class="inline-flex items-center gap-2 text-sm border rounded-full px-3 py-1 mb-3">
+            <span class="w-2 h-2 bg-green-700 rounded-full"></span>
+            Blog
+          </span>
+          <h2 class="text-4xl font-semibold text-gray-900">Popular Articles</h2>
+        </div>
+
+        <a href="{% url 'blogs' %}" class="hidden md:flex items-center gap-2 border rounded-full px-4 py-2 text-sm hover:bg-gray-900 hover:text-white transition">
+          View All
+          <span class="w-6 h-6 rounded-full bg-green-800 text-white flex items-center justify-center">↗</span>
+        </a>
+      </div>
+
+      <!-- Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card -->
+        {% for i in blogs %}
+          <article class="border rounded-2xl p-4 hover:shadow-lg transition">
+            <img src="{{ i.image.url }}" class="w-full h-52 object-cover rounded-xl mb-5" />
+
+            <h3 class="font-semibold text-lg mb-2">{{ i.title }}</h3>
+
+            <p class="text-sm text-gray-600 leading-relaxed mb-4">{{ i.content|striptags|truncatewords:25 }}</p>
+
+            <a href="{% url 'view_blog' i.id %}" class="inline-flex items-center gap-2 text-sm font-medium hover:underline">
+              <span class="text-green-800">↗</span>
+              Learn More
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+
+      <!-- Mobile View All -->
+      <div class="flex justify-center mt-10 md:hidden">
+        <a href="{% url 'blogs' %}" class="flex items-center gap-2 border rounded-full px-5 py-2 text-sm">
+          View All
+          <span class="w-6 h-6 rounded-full bg-green-800 text-white flex items-center justify-center">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-0 pb-16 sm:pb-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <span class="inline-flex items-center gap-2 text-sm border rounded-full px-3 py-1 mb-3">
+        <span class="w-2 h-2 bg-green-700 rounded-full"></span>
+        Testimonials
+      </span>
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-12 sm:mb-16">
+        <h2 class="text-center md:text-left text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight mx-auto md:mx-0">
+          Your Dream Home, Their <br />
+          Real Experience
+        </h2>
+
+        <div class="flex gap-4 justify-center md:justify-end">
+          <button id="prevBtn" class="w-12 h-12 border border-black rounded-full flex items-center justify-center hover:bg-gray-200 transition"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+          <button id="nextBtn" class="w-12 h-12 border border-black rounded-full flex items-center justify-center hover:bg-gray-200 transition"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
+        </div>
+      </div>
+
+      <div class="overflow-hidden">
+        <div id="slider" class="flex transition-transform duration-500 ease-in-out">
+          <!-- Apartment -->
+          <div class="w-full md:w-1/2 flex-shrink-0 px-4">
+            <div class="bg-gray-100 rounded-2xl p-8 sm:p-10 h-full shadow-sm">
+              <p class="text-lg sm:text-xl leading-relaxed mb-10">"Purchasing our apartment was a smooth and transparent experience. The team handled all documentation professionally."</p>
+              <div class="flex items-center gap-5">
+                <img src="https://i.pravatar.cc/100?img=68" class="w-14 h-14 rounded-full object-cover" />
+                <div>
+                  <h4 class="text-xl font-semibold">Ramesh Kumar</h4>
+                  <p class="text-gray-600">Apartment Owner</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Apartment -->
+          <div class="w-full md:w-1/2 flex-shrink-0 px-4">
+            <div class="bg-gray-100 rounded-2xl p-8 sm:p-10 h-full shadow-sm">
+              <p class="text-lg sm:text-xl leading-relaxed mb-10">"High-quality construction, modern amenities, and timely delivery. Completely satisfied with the apartment."</p>
+              <div class="flex items-center gap-5">
+                <img src="https://i.pravatar.cc/100?img=47" class="w-14 h-14 rounded-full object-cover" />
+                <div>
+                  <h4 class="text-xl font-semibold">Suresh Iyer</h4>
+                  <p class="text-gray-600">Apartment Resident</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Farm Land -->
+          <div class="w-full md:w-1/2 flex-shrink-0 px-4">
+            <div class="bg-gray-100 rounded-2xl p-8 sm:p-10 h-full shadow-sm">
+              <p class="text-lg sm:text-xl leading-relaxed mb-10">"The farmland purchase was legally clear and well-organized. A peaceful location and ideal for long-term investment."</p>
+              <div class="flex items-center gap-5">
+                <img src="https://i.pravatar.cc/100?img=52" class="w-14 h-14 rounded-full object-cover" />
+                <div>
+                  <h4 class="text-xl font-semibold">Priya Sharma</h4>
+                  <p class="text-gray-600">Agricultural Investor</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plots -->
+          <div class="w-full md:w-1/2 flex-shrink-0 px-4">
+            <div class="bg-gray-100 rounded-2xl p-8 sm:p-10 h-full shadow-sm">
+              <p class="text-lg sm:text-xl leading-relaxed mb-10">"Clear plot boundaries and transparent pricing. The buying experience was smooth and trustworthy."</p>
+              <div class="flex items-center gap-5">
+                <img src="https://i.pravatar.cc/100?img=59" class="w-14 h-14 rounded-full object-cover" />
+                <div>
+                  <h4 class="text-xl font-semibold">Arjun Reddy</h4>
+                  <p class="text-gray-600">Plot Buyer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const slider = document.getElementById('slider')
+    const nextBtn = document.getElementById('nextBtn')
+    const prevBtn = document.getElementById('prevBtn')
+    
+    let cardsPerView = window.innerWidth >= 768 ? 2 : 1
+    let currentIndex = cardsPerView
+    let cardWidth = 0
+    let isAnimating = false
+    
+    const originalCards = Array.from(slider.children)
+    
+    function initSlider() {
+      slider.innerHTML = ''
+      cardsPerView = window.innerWidth >= 768 ? 2 : 1
+    
+      // Create clones for infinite loop
+      const lastClones = originalCards.slice(-cardsPerView).map((c) => c.cloneNode(true))
+      const firstClones = originalCards.slice(0, cardsPerView).map((c) => c.cloneNode(true))
+    
+      // Append in order: [Last Cards] [Original Cards] [First Cards]
+      lastClones.forEach((clone) => slider.appendChild(clone))
+      originalCards.forEach((card) => slider.appendChild(card.cloneNode(true)))
+      firstClones.forEach((clone) => slider.appendChild(clone))
+    
+      currentIndex = cardsPerView
+    
+      // Set initial position
+      requestAnimationFrame(() => {
+        updateCardWidth()
+        slider.style.transition = 'none'
+        slider.style.transform = `translateX(-${cardWidth * currentIndex}px)`
+      })
+    }
+    
+    function updateCardWidth() {
+      if (slider.children.length > 0) {
+        cardWidth = slider.children[0].offsetWidth
+      }
+    }
+    
+    function move() {
+      slider.style.transition = 'transform 0.45s ease'
+      slider.style.transform = `translateX(-${cardWidth * currentIndex}px)`
+    }
+    
+    nextBtn.onclick = () => {
+      if (isAnimating) return
+      isAnimating = true
+      currentIndex++
+      move()
+    }
+    
+    prevBtn.onclick = () => {
+      if (isAnimating) return
+      isAnimating = true
+      currentIndex--
+      move()
+    }
+    
+    slider.addEventListener('transitionend', () => {
+      isAnimating = false
+    
+      // Infinite loop logic
+      if (currentIndex >= originalCards.length + cardsPerView) {
+        slider.style.transition = 'none'
+        currentIndex = cardsPerView
+        slider.style.transform = `translateX(-${cardWidth * currentIndex}px)`
+      }
+    
+      if (currentIndex <= 0) {
+        slider.style.transition = 'none'
+        currentIndex = originalCards.length
+        slider.style.transform = `translateX(-${cardWidth * currentIndex}px)`
+      }
+    })
+    
+    window.addEventListener('resize', () => {
+      const newCardsPerView = window.innerWidth >= 768 ? 2 : 1
+      if (newCardsPerView !== cardsPerView) {
+        initSlider()
+      } else {
+        updateCardWidth()
+        slider.style.transition = 'none'
+        slider.style.transform = `translateX(-${cardWidth * currentIndex}px)`
+      }
+    })
+    
+    initSlider()
+  </script>
+
+
+{% endblock %}

@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sakthi Property</title>
+    <link rel="icon" href="/assets/Sakthi-Group.svg" type="image/png" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- AOS (Animate on Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+  </head>
+
+  <body id="top" class="antialiased bg-white">
+    {% include 'main/navbar.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- ===== Footer ===== -->
+    {% include 'main/footer.html' %}
+
+    <!-- Scroll to Top Button -->
+
+    <a href="#top" id="scrollTopBtn" aria-label="Scroll to top">
+      <!-- SVG Progress Ring -->
+      <svg class="w-full h-full" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background Circle -->
+        <circle class="stroke-charcoal/10" cx="18" cy="18" r="16" stroke-width="2" fill="none"></circle>
+        <!-- Progress Circle -->
+        <circle id="progress-ring" class="stroke-soft-gold" cx="18" cy="18" r="16" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="100.53" stroke-dashoffset="100.53">
+          <!-- 2 * pi * 16 -->
+        </circle>
+      </svg>
+      <!-- Icon (sits on top) -->
+      <span class="absolute text-charcoal"><i data-lucide="chevron-up" class="w-6 h-6"></i></span>
+    </a>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chat-toggle-btn" aria-label="Open chat"><i data-lucide="message-circle" class="w-8 h-8"></i></button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window">
+      <!-- Header -->
+      <div class="chatbot-header">
+        <div>
+          <h3 class="font-display text-xl font-bold">Sakthi Property Concierge</h3>
+          <p class="text-xs text-ivory/70">How can we help you today?</p>
+        </div>
+        <button id="chatbot-close-btn" aria-label="Close chat"><i data-lucide="x" class="w-6 h-6 text-ivory/70 hover:text-ivory"></i></button>
+      </div>
+
+      <!-- Messages -->
+      <div class="chatbot-messages" id="chatbot-messages">
+        <!-- Initial Bot Message -->
+        <div class="chat-message bot">
+          Welcome to Sakthi Property. Ask me about properties, our services, or for Homeing advice.<div class="text-xs text-charcoal/60 mt-3 pt-3 border-t border-charcoal/10">
+            Need to speak to a person?
+            <a href="tel:+914412345678" class="font-semibold text-soft-gold hover:text-dark-gold">Call Us</a> or
+            <a href="mailto:info@sakthiproperty.com" class="font-semibold text-soft-gold hover:text-dark-gold">Email Us</a>.
+          </div>
+        </div>
+        <!-- Dummy user message -->
+        <!--     <div class="chat-message user">
+                Hi, I'm interested in properties in Chennai.
+            </div>     -->
+      </div>
+
+      <!-- Input Form -->
+      <div class="chatbot-input">
+        <form id="chatbot-form">
+          <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off" required />
+          <button type="submit" aria-label="Send message"><i data-lucide="send" class="w-5 h-5"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      // Custom Tailwind Configuration
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ivory: '#FDFDFB',
+              charcoal: '#1A1A1A',
+              'soft-gold': '#C0A067',
+              'dark-gold': '#A78B58',
+              'light-gray': '#F5F5F5'
+            },
+            fontFamily: {
+              sans: ['Poppins', 'sans-serif'],
+              display: ['Playfair Display', 'serif']
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Project filtering -->
+    <script>
+      const filterButtons = document.querySelectorAll('.filter-btn')
+      const projects = document.querySelectorAll('.project-card')
+      
+      filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter
+      
+          // Reset button styles
+          filterButtons.forEach((b) => {
+            b.classList.remove('border-b', 'border-white', 'pb-2', 'text-white')
+            b.classList.add('text-gray-400')
+          })
+      
+          // Activate current button
+          btn.classList.add('border-b', 'border-white', 'pb-2', 'text-white')
+          btn.classList.remove('text-gray-400')
+      
+          // Filter projects
+          projects.forEach((card) => {
+            if (filter === 'all' || card.dataset.category === filter) {
+              card.classList.remove('hidden')
+            } else {
+              card.classList.add('hidden')
+            }
+          })
+        })
+      })
+    </script>
+
+    <script>
+      const singleVideoSwiper = new Swiper('.singleVideoSwiper', {
+        loop: true,
+        speed: 1000,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false
+        },
+        effect: 'fade', // smooth premium feel
+        fadeEffect: {
+          crossFade: true
+        },
+        on: {
+          slideChangeTransitionStart() {
+            document.querySelectorAll('.singleVideoSwiper video').forEach((v) => {
+              v.pause()
+              v.currentTime = 0
+            })
+          },
+          slideChangeTransitionEnd() {
+            const activeVideo = document.querySelector('.singleVideoSwiper .swiper-slide-active video')
+            activeVideo.play()
+          }
+        }
+      })
+    </script>
+    <!-- Plugins -->
+  </body>
+</html>

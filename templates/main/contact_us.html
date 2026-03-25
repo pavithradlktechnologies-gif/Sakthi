@@ -1,0 +1,194 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+  <!-- ===== Hero Section ===== -->
+  <section class="min-h-screen lg:min-h-[100vh] flex items-end relative overflow-hidden">
+    <!-- Background Video -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <video class="w-full h-full object-cover object-center" autoplay muted loop playsinline preload="auto" poster="https://your-cdn.com/hero-poster.webp">
+        <source src="{% static 'videos/contact.mp4' %}" type="video/webm" />
+        <source src="{% static 'videos/contact.mp4' %}" type="video/mp4" />
+      </video>
+
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+    </div>
+
+    <!-- Sakthi Property at Top - Fixed position immediately when scrolling starts -->
+    <div id="topBrand" class="text-base md:text-lg font-medium tracking-widest uppercase transition-all duration-300 absolute top-4 left-0 right-0 z-30 flex justify-center opacity-100">
+      <a href="index.html" class="flex justify-center"><img class="w-30 h-10" id="logo2" src="{% static 'images/logo_home.webp' %}" alt="Sakthi Property Logo" /></a>
+    </div>
+
+    <div class="container mx-auto px-6 pb-24 md:pb-32 lg:pb-40 relative z-10">
+      <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+        <h1 id="typingText" class="font-display text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.20em] font-light text-ivory mb-6 whitespace-nowrap overflow-hidden"></h1>
+        <span id="cursor" class="text-ivory animate-pulse"></span>
+      </div>
+    </div>
+
+    <!-- Bottom Nav - Stays at bottom of hero section, always visible -->
+    <div class="absolute bottom-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-8 py-4 text-xs tracking-widest uppercase bg-transparent backdrop-blur-sm">
+      <!-- Left side - Hidden on mobile, shown on desktop -->
+      <div class="hidden md:flex gap-4 lg:gap-6 items-center text-ivory/80">
+        <a href="{% url 'index' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Home</a>
+        <a href="{% url 'about' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Who we are</a>
+        <a href="{% url 'properties' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Properties</a>
+        <a href="{% url 'services' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Services</a>
+        <a href="{% url 'blogs' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Blog</a>
+      </div>
+
+      <!-- Hamburger Icon for Bottom Nav on Mobile -->
+      <button onclick="toggleMobileMenu()" class="md:hidden flex items-center justify-center text-ivory" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Center - Empty space -->
+      <div class="text-lg font-medium invisible">Sakthi Property</div>
+
+      <!-- Right side - Hidden on mobile, shown on desktop -->
+      <div class="hidden md:flex gap-4 lg:gap-6 text-ivory/80">
+        <a href="{% url 'new_development' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">New Development</a>
+        <a href="{% url 'contact_us' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Contact Us</a>
+      </div>
+      <!-- Search Icon for Bottom Nav on Mobile -->
+      <button class="md:hidden flex items-center justify-center text-ivory" aria-label="Search">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <section class="relative min-h-screen bg-gray-900">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <img src="{% static 'images/contact_us.webp' %}" alt="Office" class="w-full h-full object-cover opacity-70" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- LEFT CONTENT -->
+        <div class="text-white space-y-8">
+          <h2 class="text-3xl sm:text-4xl font-semibold">Contact Information</h2>
+
+          <p class="text-gray-300 max-w-md">Get in touch with sakthi property developers for residential apartments, plots, and farm lands. Our team is ready to assist you with inquiries, project details, and investment opportunities.</p>
+
+          <!-- Chennai Corporate Office -->
+          <div class="space-y-4 pt-4 text-sm">
+            <h3 class="text-lg font-semibold text-white">Chennai Corporate Office</h3>
+
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10">📞</span>
+              <span>+91-9955118814</span>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10">📍</span>
+              <span>
+                18/26, IInd Street,<br />
+                Loganathan Nagar, Choolaimedu,<br />
+                Chennai - 600094
+              </span>
+            </div>
+          </div>
+
+          <hr />
+          <div class="space-y-4 text-sm">
+            <h3 class="text-lg font-semibold text-white">Chennai Marketing Office</h3>
+
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10">📞</span>
+              <span>+91-9955118814</span>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10">📍</span>
+              <span>
+                1st Floor, 18/36,<br />
+                Karpagambal Nagar,<br />
+                Mylapore, Chennai – 600004
+              </span>
+            </div>
+          </div>
+          <hr />
+
+          <!-- Bangalore Office -->
+          <div class="space-y-4 text-sm">
+            <h3 class="text-lg font-semibold text-white">Bangalore Office</h3>
+
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10">📞</span>
+              <span>+91-9966556600</span>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <span class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10">📍</span>
+              <span>
+                S.No 24/14, 25/1 A Block,<br />
+                Seegehalli, Whitefield,<br />
+                Bangalore - 560029
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT FORM -->
+        <div class="bg-white rounded-3xl shadow-xl p-6 sm:p-8 max-w-md mx-auto w-full">
+          <form method="POST" class="space-y-4">
+            {% csrf_token %}
+
+            {{ form.name }}
+            {{ form.email }}
+            {{ form.phone }}
+            {{ form.project }}
+            {{ form.message }}
+
+            <button class="w-full bg-gradient-to-r from-gray-900 to-black text-white py-3 rounded-full font-medium hover:opacity-90 transition">Send Your Message</button>
+          </form>
+          {% if message %}
+            <script>
+              alert('Your message has been sent successfully!')
+            </script>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const text = 'Reach Our Experts'
+      const typingEl = document.getElementById('typingText')
+      const cursor = document.getElementById('cursor')
+    
+      let index = 0
+      const speed = 120 // typing speed
+    
+      function type() {
+        if (index < text.length) {
+          typingEl.textContent += text.charAt(index)
+          index++
+          setTimeout(type, speed)
+        } else {
+          // Stop cursor blink
+          cursor.classList.add('hidden')
+    
+          // Fade out after typing finishes
+          setTimeout(() => {
+            typingEl.classList.add('transition-opacity', 'duration-1000', 'opacity-0')
+          }, 800)
+    
+          // Remove completely
+          setTimeout(() => {
+            typingEl.parentElement.classList.add('hidden')
+          }, 1800)
+        }
+      }
+      type()
+    })
+  </script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'admin_dashboard/base.html' %}
+
+{% block content %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+    <div class="d-block mb-4 mb-md-0">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+      </nav>
+      <h2 class="h3">Home Banner Video</h2>
+    </div>
+    <button type="button" class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#addPopupModal">
+      <i class="bi bi-pencil-square"></i>
+      Change Video
+    </button>
+
+    <div class="modal fade" id="addPopupModal" tabindex="-1" aria-labelledby="addPopupModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-md">
+        <!-- Bigger Popup -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Change Banner Video</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          {% if video %}
+          <form method="POST" enctype="multipart/form-data" action="{% url 'change_video' video.id %}">
+            {% csrf_token %}
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Upload Video</label>
+                {{ form.video }}
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-gray-800">Save</button>
+            </div>
+          </form>
+          {% endif %}
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Preview Section -->
+  <div class="card shadow-sm mt-2">
+    <div class="card-body">
+      {% if video %}
+        <video width="100%" autoplay muted loop playsinline style="pointer-events: none;">
+          <source src="{{ video.video.url }}" type="video/mp4" />Your browser does not support HTML5 video.
+        </video>
+      {% else %}
+        <p class="text-muted">No video uploaded yet.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,226 @@
+{% load static %}
+<!-- Left Fixed Social Bar -->
+
+    <div class="fixed top-1/2 left-0 -translate-y-1/2 z-50">
+        <div class="flex flex-col">
+
+            <!-- Call -->
+            <div class="relative group flex items-center">
+                <a href="tel:+919955118814" class="bg-blue-800/80 backdrop-blur-md p-3 block 
+                transform scale-90 group-hover:scale-110 
+                transition-all duration-300">
+
+                    <i data-lucide="phone" class="w-5 h-5 text-white transition-all duration-300"></i>
+                </a>
+
+                <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3
+                bg-blue-800/90 text-white text-sm px-3 py-1 rounded-md
+                opacity-0 translate-x-[-10px]
+                group-hover:opacity-100 group-hover:translate-x-0
+                transition-all duration-300 whitespace-nowrap shadow-lg">
+                    +91 99551 18814
+                </span>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="relative group flex items-center">
+                <a href="https://wa.me/919955118814" target="_blank" class="bg-green-500/80 backdrop-blur-md p-3 block 
+                transform scale-90 group-hover:scale-110 
+                transition-all duration-300">
+
+                    <i data-lucide="message-circle" class="w-5 h-5 text-white"></i>
+                </a>
+
+                <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3
+                bg-green-600 text-white text-sm px-3 py-1 rounded-md
+                opacity-0 translate-x-[-10px]
+                group-hover:opacity-100 group-hover:translate-x-0
+                transition-all duration-300 whitespace-nowrap shadow-lg">
+                    Chat on WhatsApp
+                </span>
+            </div>
+
+            <!-- Instagram -->
+            <div class="relative group flex items-center">
+                <a href="https://www.instagram.com/sakthipropertydevelopers" target="_blank" class="bg-pink-600/80 backdrop-blur-md p-3 block 
+                transform scale-90 group-hover:scale-110 
+                transition-all duration-300">
+
+                    <i data-lucide="instagram" class="w-5 h-5 text-white"></i>
+                </a>
+
+                <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3
+                bg-pink-600 text-white text-sm px-3 py-1 rounded-md
+                opacity-0 translate-x-[-10px]
+                group-hover:opacity-100 group-hover:translate-x-0
+                transition-all duration-300 whitespace-nowrap shadow-lg">
+                    Follow on Instagram
+                </span>
+            </div>
+
+            <!-- Facebook -->
+            <div class="relative group flex items-center">
+                <a href="https://www.facebook.com/share/1CfDHj2idD/?mibextid=wwXIfr" target="_blank" class="bg-blue-600/80 backdrop-blur-md p-3 block 
+                transform scale-90 group-hover:scale-110 
+                transition-all duration-300">
+
+                    <i data-lucide="facebook" class="w-5 h-5 text-white"></i>
+                </a>
+
+                <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3
+                bg-blue-600 text-white text-sm px-3 py-1 rounded-md
+                opacity-0 translate-x-[-10px]
+                group-hover:opacity-100 group-hover:translate-x-0
+                transition-all duration-300 whitespace-nowrap shadow-lg">
+                    Like on Facebook
+                </span>
+            </div>
+
+            <!-- YouTube -->
+            <div class="relative group flex items-center">
+                <a href="https://www.youtube.com/@sakthipropertydevelopers" target="_blank" class="bg-red-600/80 backdrop-blur-md p-3 block 
+                transform scale-90 group-hover:scale-110 
+                transition-all duration-300">
+
+                    <i data-lucide="youtube" class="w-5 h-5 text-white"></i>
+                </a>
+
+                <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3
+                bg-red-600 text-white text-sm px-3 py-1 rounded-md
+                opacity-0 translate-x-[-10px]
+                group-hover:opacity-100 group-hover:translate-x-0
+                transition-all duration-300 whitespace-nowrap shadow-lg">
+                    Subscribe on YouTube
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    
+    <!-- Right Side Fixed Enquire Button -->
+    <div class="fixed right-0 top-1/2 -translate-y-1/2 z-50">
+        <a href="{% url "contact_us" %}" class="group relative bg-yellow-500 text-black
+      w-12 h-44
+      flex items-center justify-center
+      rounded-l-xl
+      shadow-xl
+      transition-all duration-300
+      hover:bg-yellow-600 hover:-translate-x-2">
+
+            <span class="rotate-90 whitespace-nowrap font-semibold tracking-wider text-sm">
+                Enquire Now
+            </span>
+
+        </a>
+
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-indicator" style="width: 0%;"></div>
+
+    <!-- ===== Douglas Elliman Style Navbar ===== -->
+    <!-- VIDEO ICON in Top Right Corner -->
+    <div class="fixed top-4 right-4 z-40 hidden">
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Watch video" class="flex items-center justify-center w-10 h-10 rounded-full
+               bg-white/10 hover:bg-white/20
+               transition-all duration-300">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+            </svg>
+        </a>
+    </div>
+
+
+    <!-- STICKY NAV BAR (Fixed at top when scrolling past hero) -->
+    <div id="stickyNav" class="fixed top-0 left-0 right-0 z-50
+         hidden
+         flex justify-between items-center
+         px-4 md:px-8 py-4
+         text-xs tracking-widest uppercase
+         bg-white/80
+         transition-all duration-300
+         border-b border-white/20">
+
+        <!-- LEFT SIDE (Desktop menu) -->
+        <div class="hidden md:flex gap-4 lg:gap-6 items-center text-charcoal/80">
+            <a href="{% url 'index' %}" class="hover:text-soft-gold hidden lg:inline">Home</a>
+            <a href="{% url 'about' %}" class="hover:text-soft-gold hidden md:inline">Who we are</a>
+            <a href="{% url 'properties' %}" class="hover:text-soft-gold hidden lg:inline">Properties</a>
+            <a href="{% url 'services' %}" class="hover:text-soft-gold hidden lg:inline">Services</a>
+            <a href="{% url 'blogs' %}" class="hover:text-soft-gold hidden md:inline">Blog</a>
+        </div>
+
+        <!-- Hamburger (Mobile Left) -->
+        <button onclick="toggleMobileMenu()" aria-label="Toggle menu"
+            class="md:hidden w-10 h-10 flex items-center justify-center text-charcoal">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+
+        <!-- CENTER LOGO -->
+        <div id="stickyBrand" class="flex justify-center lg:ml-24 
+           transition-all duration-700 ease-out
+           opacity-0 -translate-y-4">
+            <a href="index.html">
+                <img id="logo1" src="{% static 'images/logo.webp' %}" alt="Sakthi Property Logo" class="w-30 h-10" />
+            </a>
+        </div>
+
+        <!-- INVISIBLE PLACEHOLDER (KEY FOR PERFECT CENTER) -->
+        <div class="text-lg font-medium invisible hidden md:block">
+            Sakthi Property
+        </div>
+
+        <!-- RIGHT SIDE (Desktop menu) -->
+        <div class="hidden md:flex gap-4 lg:gap-6 text-charcoal/80">
+            <a href="{% url 'new_development' %}" class="hover:text-soft-gold hidden md:inline">New Development</a>
+            <a href="{% url 'contact_us' %}" class="hover:text-soft-gold hidden lg:inline">Contact Us</a>
+        </div>
+
+        <!-- Search (Mobile Right) -->
+<a href="{% url "properties" %}" class="md:hidden flex items-center justify-center" aria-label="Home">
+  <svg class="w-5 h-5" fill="none" stroke="black" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+      d="M3 10.5L12 3l9 7.5M5 10v10h5v-6h4v6h5V10" />
+  </svg>
+</a>
+    </div>
+
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div id="mobileMenuOverlay"
+        class="fixed inset-0 z-50 bg-black/50 transition-all duration-300 opacity-0 pointer-events-none"
+        onclick="closeMobileMenu()">
+        <!-- Mobile Menu Panel -->
+        <div id="mobileMenuPanel"
+            class="fixed top-0 left-0 bottom-0 w-64 bg-white/95 backdrop-blur-md shadow-lg transform transition-transform duration-300 ease-in-out -translate-x-full"
+            onclick="event.stopPropagation()">
+            <!-- Close Button (X) -->
+            <div class="flex justify-end p-6">
+                <button onclick="closeMobileMenu()" class="flex items-center justify-center w-8 h-8 text-charcoal"
+                    aria-label="Close menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Items -->
+            <div class="px-6 py-4 space-y-8">
+                <div class="space-y-6 text-charcoal">
+                    <a href="{% url "index" %}" class="text-lg block hover:text-soft-gold transition-colors">Home</a>
+                    <a href="{% url "about" %}" class="text-lg block hover:text-soft-gold transition-colors">About us</a>
+                    <a href="{% url "properties" %}" class="text-lg block hover:text-soft-gold transition-colors">Properties</a>
+                    <a href="{% url 'new_development' %}" class="text-lg block hover:text-soft-gold transition-colors">New
+                        Development</a>
+                    <a href="{% url "blogs" %}" class="text-lg block hover:text-soft-gold transition-colors">Blog</a>
+                    <a href="{% url "careers" %}" class="text-lg block hover:text-soft-gold transition-colors">Career</a>
+                    <a href="{% url "contact_us" %}" class="text-lg block hover:text-soft-gold transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>

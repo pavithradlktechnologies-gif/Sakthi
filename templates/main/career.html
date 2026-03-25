@@ -1,0 +1,140 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+  <main>
+    <!-- ===== Hero Section ===== -->
+    <section class="min-h-screen lg:min-h-[100vh] flex items-end relative overflow-hidden">
+      <!-- Background Video -->
+      <div class="absolute inset-0 z-0 overflow-hidden">
+        <video class="w-full h-full object-cover object-center" autoplay muted loop playsinline preload="auto" poster="https://your-cdn.com/hero-poster.webp">
+          <source src="{% static 'videos/carrer.mp4' %}" type="video/webm" />
+          <source src="{% static 'videos/carrer.mp4' %}" type="video/mp4" />
+        </video>
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+      </div>
+
+      <!-- Sakthi Property at Top - Fixed position immediately when scrolling starts -->
+      <div id="topBrand" class="text-base md:text-lg font-medium tracking-widest uppercase transition-all duration-300 absolute top-4 left-0 right-0 z-30 flex justify-center opacity-100">
+        <a href="{% url 'index' %}" class="flex justify-center"><img class="w-30 h-10" id="logo2" src="{% static 'images/logo_home.webp' %}" alt="Sakthi Property Logo" /></a>
+      </div>
+
+      <div class="container mx-auto px-6 pb-24 md:pb-32 lg:pb-40 relative z-10">
+        <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+          <h1 id="typingText" class="font-display text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.20em] font-light text-ivory mb-6 whitespace-nowrap overflow-hidden"></h1>
+
+          <span id="cursor" class="text-ivory animate-pulse"></span>
+        </div>
+      </div>
+
+      <!-- Bottom Nav - Stays at bottom of hero section, always visible -->
+      <div class="absolute bottom-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-8 py-4 text-xs tracking-widest uppercase bg-transparent backdrop-blur-sm">
+        <!-- Left side - Hidden on mobile, shown on desktop -->
+        <div class="hidden md:flex gap-4 lg:gap-6 items-center text-ivory/80">
+          <a href="{% url 'index' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Home</a>
+          <a href="{% url 'about' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Who we are</a>
+          <a href="{% url 'properties' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Properties</a>
+          <a href="{% url 'services' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Services</a>
+          <a href="{% url 'blogs' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Blog</a>
+        </div>
+
+        <!-- Hamburger Icon for Bottom Nav on Mobile -->
+        <button onclick="toggleMobileMenu()" class="md:hidden flex items-center justify-center text-ivory" aria-label="Open menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
+        <!-- Center - Empty space -->
+        <div class="text-lg font-medium invisible">Sakthi Property</div>
+
+        <!-- Right side - Hidden on mobile, shown on desktop -->
+        <div class="hidden md:flex gap-4 lg:gap-6 text-ivory/80">
+          <a href="{% url 'new_development' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">New Development</a>
+          <a href="{% url 'contact_us' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Contact Us</a>
+        </div>
+        <!-- Search Icon for Bottom Nav on Mobile -->
+        <button class="md:hidden flex items-center justify-center text-ivory" aria-label="Search">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==== Blog section ==== -->
+
+    <section class="bg-white py-16 px-5">
+      <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="mb-10">
+          <h2 class="text-4xl font-semibold text-gray-900">Job Openings</h2>
+          <p class="text-gray-600 mt-2">Join our construction team and be part of landmark residential projects.</p>
+        </div>
+
+        <!-- Job List -->
+        <div class="space-y-5">
+          <!-- Job -->
+          {% for job in jobs %}
+            <div class="border rounded-xl p-6 flex flex-col md:flex-row md:justify-between hover:shadow-md transition">
+              <div>
+                <h3 class="text-lg font-semibold">{{ job.title }}</h3>
+
+                <div class="text-sm text-gray-500 mt-2">📍 {{ job.location }} • 💼 {{ job.get_job_type_display }} • 🕒 {{ job.experience_required }}</div>
+              </div>
+
+              <a href="{% url 'apply_job' job.id %}" class="inline-flex items-center gap-2 bg-[#0A1128] text-white px-6 py-3 rounded-full font-medium hover:bg-[#0F1A40] transition">
+                Apply Now<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 7l-10 10m0-10h10v10" />
+                </svg>
+              </a>
+            </div>
+          {% empty %}
+            <p class="text-gray-500">No jobs available right now.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {% if message %}
+    <script>
+      alert('Application submitted successfully!')
+    </script>
+  {% endif %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const text = "Career's"
+    
+      const typingEl = document.getElementById('typingText')
+      const cursor = document.getElementById('cursor')
+    
+      let index = 0
+      const speed = 120 // typing speed
+    
+      function type() {
+        if (index < text.length) {
+          typingEl.textContent += text.charAt(index)
+          index++
+          setTimeout(type, speed)
+        } else {
+          // Stop cursor blink
+          cursor.classList.add('hidden')
+    
+          // Fade out after typing finishes
+          setTimeout(() => {
+            typingEl.classList.add('transition-opacity', 'duration-1000', 'opacity-0')
+          }, 800)
+    
+          // Remove completely
+          setTimeout(() => {
+            typingEl.parentElement.classList.add('hidden')
+          }, 1800)
+        }
+      }
+    
+      type()
+    })
+  </script>
+{% endblock %}

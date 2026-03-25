@@ -1,0 +1,584 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+  <!-- ===== Hero Section ===== -->
+  <section class="min-h-screen lg:min-h-[100vh] flex items-end relative overflow-hidden">
+    <!-- Background Video -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <video id="heroVideo" class="w-full h-full object-cover object-center" autoplay muted loop playsinline preload="auto" poster="#">
+        <source src="{% static 'videos/about1.mov' %}" type="video/mp4" />
+      </video>
+
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+    </div>
+
+    <!-- Sakthi Property at Top - Fixed position immediately when scrolling starts -->
+    <div id="topBrand" class="text-base md:text-lg font-medium tracking-widest uppercase transition-all duration-300 absolute top-4 left-0 right-0 z-30 flex justify-center opacity-100">
+      <a href="{% url 'index' %}" class="flex justify-center"><img class="w-30 h-10" id="logo2" src="{% static 'images/logo_home.webp' %}" alt="Sakthi Property Logo" /></a>
+    </div>
+
+    <div class="container mx-auto px-6 pb-24 md:pb-32 lg:pb-40 relative z-10">
+      <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+        <h1 id="typingText" class="font-display text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.20em] font-light text-ivory mb-6 whitespace-nowrap overflow-hidden"></h1>
+        <span id="cursor" class="text-ivory animate-pulse"></span>
+      </div>
+    </div>
+
+    <!-- Bottom Nav - Stays at bottom of hero section, always visible -->
+    <div class="absolute bottom-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-8 py-4 text-xs tracking-widest uppercase bg-transparent backdrop-blur-sm">
+      <!-- Left side - Hidden on mobile, shown on desktop -->
+      <div class="hidden md:flex gap-4 lg:gap-6 items-center text-ivory/80">
+        <a href="{% url 'index' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Home</a>
+        <a href="{% url 'about' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Who we are</a>
+        <a href="{% url 'properties' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Properties</a>
+        <a href="{% url 'services' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Services</a>
+        <a href="{% url 'blogs' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Blog</a>
+      </div>
+
+      <!-- Hamburger Icon for Bottom Nav on Mobile -->
+      <button onclick="toggleMobileMenu()" class="md:hidden flex items-center justify-center text-ivory" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+
+      <!-- Center - Empty space -->
+      <div class="text-lg font-medium invisible">Sakthi Property</div>
+
+      <!-- Right side - Hidden on mobile, shown on desktop -->
+      <div class="hidden md:flex gap-4 lg:gap-6 text-ivory/80">
+        <a href="{% url 'new_development' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">New Development</a>
+        <a href="{% url 'contact_us' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Contact Us</a>
+      </div>
+      <!-- Search Icon for Bottom Nav on Mobile -->
+      <button class="md:hidden flex items-center justify-center text-ivory" aria-label="Search">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==== About us ==== -->
+  <section class="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Top Content -->
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-12 mb-14">
+        <!-- Left -->
+        <div>
+          <span class="inline-flex items-center gap-2 text-sm text-neutral-600 border border-neutral-200 rounded-full px-4 py-1 mb-4">
+            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+            The Sakthi Story
+          </span>
+
+          <h2 class="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight">About Sakthi Groups</h2>
+        </div>
+
+        <!-- Right -->
+        <div class="max-w-xl text-neutral-600 text-base leading-relaxed">
+          <p>Since 1984, Sakthi Group has built a legacy of trust, quality, and disciplined execution. Through Sakthi Property, we extend this heritage into real estate developing thoughtfully crafted residential and commercial spaces. All our projects are RERA-approved, with select developments holding BDA approvals and E-Khata certification, ensuring transparency, legal clarity, and lasting value.</p>
+        </div>
+      </div>
+
+      <!--   <div class="relative rounded-2xl overflow-hidden">
+                    <img src="/assets/about.webp" alt="Luxury Villa"
+                        class="w-full h-[260px] sm:h-[380px] md:h-[460px] lg:h-[520px] object-cover" />
+                </div>   -->
+    </div>
+  </section>
+
+  <section class="bg-white py-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <!-- Left Content -->
+        <div>
+          <h2 class="text-4xl md:text-5xl font-semibold text-neutral-900 leading-tight mb-6">Who we are ?<br class="hidden sm:block" /></h2>
+
+          <p class="text-neutral-600 text-base text-justify leading-relaxed mb-4 max-w-xl">Sakthi Property, a proud part of the renowned Sakthi Group of Companies, has been a trusted name in Chennai's real estate industry for over four decades. Our journey is built on a strong foundation of quality, integrity, and on-time delivery, creating architecturally elegant homes that blend seamlessly with their surroundings.</p>
+          <p class="text-neutral-600 text-base text-justify leading-relaxed mb-8 max-w-xl">Our developments reflect a careful balance of thoughtful planning, superior construction standards, and enduring aesthetics. Each project is designed with a focus on natural light, efficient layouts, and long-term livability, ensuring spaces that remain relevant and refined over time.</p>
+
+          <p class="text-neutral-600 text-base text-justify leading-relaxed mb-8 max-w-xl">Driven by a transparent and customer-first approach, we have successfully delivered premium residential projects to over 5000+ satisfied customers. Every home we build is thoughtfully designed to suit modern lifestyles, offering comfort, durability, and long-term value.</p>
+        </div>
+
+        <!-- Right Image -->
+        <div class="relative overflow-hidden">
+          <img src="{% static 'images/about4.webp' %}" alt="Luxury Property" class="w-full h-auto object-contain" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="relative w-full h-[85vh] overflow-hidden rounded-2xl shadow-2xl bg-white">
+    <!-- Slide 1 : Vision -->
+    <div class="absolute inset-0 slide opacity-100">
+      <img src="{% static 'images/s1.webp' %}" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+
+      <div class="absolute inset-0 flex items-center justify-center px-6">
+        <div class="text-white text-center max-w-2xl">
+          <!-- Icon -->
+          <div class="flex justify-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-20 md:h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1 1 0 010-.644C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.01 9.964 7.178a1 1 0 010 .644C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.01-9.964-7.178z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-light mb-8">Vision</h1>
+          <p class="text-xl md:text-2xl leading-relaxed opacity-95">To develop best-in-class homes at soothing locations, enabling people to enjoy a tranquil and elevated lifestyle.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 : Mission -->
+    <div class="absolute inset-0 slide opacity-0">
+      <img src="{% static 'images/s2.webp' %}" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+
+      <div class="absolute inset-0 flex items-center justify-center px-6">
+        <div class="text-white text-center max-w-2xl">
+          <!-- Icon -->
+          <div class="flex justify-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-20 md:h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v3m6.364 1.636l-2.121 2.121M21 12h-3m-1.636 6.364l-2.121-2.121M12 21v-3m-6.364-1.636l2.121-2.121M3 12h3m1.636-6.364l2.121 2.121" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-light mb-8">Mission</h1>
+          <p class="text-xl md:text-2xl leading-relaxed opacity-95">Making quality housing accessible by offering thoughtfully designed affordable and luxury homes at fair prices.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 : Goal -->
+    <div class="absolute inset-0 slide opacity-0">
+      <img src="{% static 'images/s3.webp' %}" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-black/60"></div>
+
+      <div class="absolute inset-0 flex items-center justify-center px-6">
+        <div class="text-white text-center max-w-2xl">
+          <!-- Icon -->
+          <div class="flex justify-center mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 md:w-20 md:h-20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v18M5 3l14 4-14 4" />
+            </svg>
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-light mb-8">Goal</h1>
+          <p class="text-xl md:text-2xl leading-relaxed opacity-95">To passionately follow global best construction practices while delivering long-lasting value and excellence.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARROWS -->
+    <button onclick="prevSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 z-10 bg-white/30 hover:bg-white/50 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-3xl">❮</button>
+
+    <button onclick="nextSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 z-10 bg-white/30 hover:bg-white/50 text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-3xl">❯</button>
+  </div>
+
+  <!-- Charment message -->
+  <section class="bg-white py-14 px-4 sm:px-8 lg:px-16">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+      <!-- LEFT CONTENT -->
+      <div class="relative">
+        <!-- Quote Icon -->
+        <div class="text-7xl text-indigo-300 font-serif leading-none mb-6">"</div>
+
+        <!-- Quote Text -->
+        <p class="text-gray-700 text-lg leading-relaxed mb-4">At Sakthi Group of Companies, our mission is to build lasting value for our customers, our communities, and our future.</p>
+
+        <p class="text-gray-700 text-lg leading-relaxed mb-4">We are committed to delivering high quality residential and commercial spaces, backed by professional management, timely execution, and a strong focus on customer satisfaction.</p>
+
+        <p class="text-gray-700 text-lg leading-relaxed mb-6">Transparency and trust are the cornerstones of our approach. By setting clear expectations and upholding integrity in every interaction, we aim to build not just structures, but strong relationships.</p>
+        <p class="text-gray-600 mb-6">Moving forward with clarity, integrity, and ambition....</p>
+
+        <!-- Name -->
+        <div class="mt-6">
+          <p class="text-lg font-semibold text-gray-900">— Mr. Ka Anandh</p>
+          <p class="text-sm text-gray-500">Chairman Cum Managing Director, Sakthi Group of Companies</p>
+        </div>
+      </div>
+
+      <!-- RIGHT IMAGE -->
+      <div class="flex justify-center lg:justify-end">
+        <div class="relative">
+          <div class="w-70 h-70">
+            <img src="{% static 'images/charmen.webp' %}" alt="Mr. Nisarg Trivedi" class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-14 px-4 sm:px-8 lg:px-16">
+    <div class="max-w-7xl mx-auto">
+      <!-- Heading -->
+      <h2 class="text-center text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 mb-12">Group of Companies</h2>
+
+      <!-- Logos Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Logo Card -->
+        <div class="flex items-center justify-center h-32 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
+          <img src="{% static 'group_of_companes/Sakthi-Group.svg' %}" alt="Sakthi Group" class="h-28 object-contain" />
+        </div>
+
+        <div class="flex items-center justify-center h-32 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
+          <img src="{% static 'group_of_companes/Sakthi-Renewable-Energy.svg' %}" alt="Sakthi Renewable Energy" class="h-28 object-contain" />
+        </div>
+
+        <div class="flex items-center justify-center h-32 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
+          <img src="{% static 'group_of_companes/SFS.svg' %}" alt="SFS" class="h-28 object-contain" />
+        </div>
+
+        <div class="flex items-center justify-center h-32 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
+          <img src="{% static 'group_of_companes/SIP.svg' %}" alt="SIP" class="h-28 object-contain" />
+        </div>
+
+        <div class="flex items-center justify-center h-32 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
+          <img src="{% static 'group_of_companes/SME-Intellect.svg' %}" alt="SME Intellect" class="h-28 object-contain" />
+        </div>
+
+        <div class="flex items-center justify-center h-32 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
+          <img src="{% static 'group_of_companes/Sri-Durga.svg' %}" alt="Sri Durga" class="h-28 object-contain" />
+        </div>
+
+        <div class="flex items-center justify-center h-32 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
+          <img src="{% static 'group_of_companes/SSI-Gold-House.svg' %}" alt="SSI Gold House" class="h-28 object-contain" />
+        </div>
+
+        <div class="flex items-center justify-center h-32 bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition">
+          <img src="{% static 'group_of_companes/SSI-TMT-Bars.svg' %}" alt="SSI TMT Bars" class="h-28 object-contain" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+
+  <section class="w-full bg-white py-8 md:py-16 px-4 md:px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 md:gap-10 items-start">
+      <!-- LEFT CONTENT -->
+      <div class="mb-8 md:mb-0">
+        <span class="inline-flex items-center gap-2 text-sm text-neutral-600 border border-neutral-200 rounded-full px-4 py-1 mb-4">
+          <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+          All Questions
+        </span>
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3 md:mb-4">Frequently Asked <br class="hidden sm:block" /> Question</h2>
+        <p class="text-gray-500 text-sm md:text-base max-w-md">Here are some common questions along with their answers to help clear up any confusion.</p>
+      </div>
+
+      <!-- RIGHT FAQ -->
+      <div class="space-y-3 md:space-y-4" id="faqContainer">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item rounded-xl md:rounded-2xl border border-gray-200 bg-white text-black hover:bg-gray-50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer overflow-hidden" onclick="toggleFAQ(0)">
+          <!-- QUESTION -->
+          <div class="flex justify-between items-start p-4 md:p-6">
+            <h3 class="font-medium text-base md:text-lg pr-4 leading-tight md:leading-normal">How long does it take to complete a construction project?</h3>
+            <span class="transform transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] flex-shrink-0 mt-0.5 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </span>
+          </div>
+          <!-- ANSWER -->
+          <div class="answer-section transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden max-h-0 opacity-0 -translate-y-2">
+            <div class="px-4 md:px-6 pb-4 md:pb-6 text-xs md:text-sm text-white pt-0">The timeline depends on the size and complexity of the project. A standard residential home can take anywhere from 12 to 24 months, while commercial or custom projects may take longer. We provide a detailed schedule during planning to keep you informed every step of the way.</div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item rounded-xl md:rounded-2xl border border-gray-200 bg-white text-black hover:bg-gray-50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer overflow-hidden" onclick="toggleFAQ(1)">
+          <!-- QUESTION -->
+          <div class="flex justify-between items-start p-4 md:p-6">
+            <h3 class="font-medium text-base md:text-lg pr-4 leading-tight md:leading-normal">What is included in the construction cost?</h3>
+            <span class="transform transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] flex-shrink-0 mt-0.5 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </span>
+          </div>
+          <!-- ANSWER -->
+          <div class="answer-section transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden max-h-0 opacity-0 -translate-y-2">
+            <div class="px-4 md:px-6 pb-4 md:pb-6 text-xs md:text-sm text-whitept-0">Construction costs typically cover materials, labor, machinery, and permits. Optional costs may include interior finishes, landscaping, and custom features. We offer a transparent breakdown so you know exactly what you’re investing in.</div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item rounded-xl md:rounded-2xl border border-gray-200 bg-white text-black hover:bg-gray-50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer overflow-hidden" onclick="toggleFAQ(2)">
+          <!-- QUESTION -->
+          <div class="flex justify-between items-start p-4 md:p-6">
+            <h3 class="font-medium text-base md:text-lg pr-4 leading-tight md:leading-normal">Can I make changes during the construction process?</h3>
+            <span class="transform transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] flex-shrink-0 mt-0.5 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </span>
+          </div>
+          <!-- ANSWER -->
+          <div class="answer-section transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden max-h-0 opacity-0 -translate-y-2">
+            <div class="px-4 md:px-6 pb-4 md:pb-6 text-xs md:text-sm text-white pt-0">Yes! Minor changes can often be accommodated during construction. For major changes, we review the impact on the timeline and cost before implementation to ensure your project stays on track.</div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item rounded-xl md:rounded-2xl border border-gray-200 bg-white text-black hover:bg-gray-50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer overflow-hidden" onclick="toggleFAQ(3)">
+          <!-- QUESTION -->
+          <div class="flex justify-between items-start p-4 md:p-6">
+            <h3 class="font-medium text-base md:text-lg pr-4 leading-tight md:leading-normal">How do you ensure the quality and safety of the construction?</h3>
+            <span class="transform transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] flex-shrink-0 mt-0.5 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </span>
+          </div>
+          <!-- ANSWER -->
+          <div class="answer-section transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden max-h-0 opacity-0 -translate-y-2">
+            <div class="px-4 md:px-6 pb-4 md:pb-6 text-xs md:text-sm text-white pt-0">We follow strict quality control and safety protocols at every stage. All materials meet industry standards, skilled professionals manage the work, and regular inspections ensure that your project is safe, durable, and built to last.</div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item rounded-xl md:rounded-2xl border border-gray-200 bg-white text-black hover:bg-gray-50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] cursor-pointer overflow-hidden" onclick="toggleFAQ(4)">
+          <!-- QUESTION -->
+          <div class="flex justify-between items-start p-4 md:p-6">
+            <h3 class="font-medium text-base md:text-lg pr-4 leading-tight md:leading-normal">How can I contact BuildingBlocks Real Estate?</h3>
+            <span class="transform transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] flex-shrink-0 mt-0.5 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </span>
+          </div>
+          <!-- ANSWER -->
+          <div class="answer-section transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden max-h-0 opacity-0 -translate-y-2">
+            <div class="px-4 md:px-6 pb-4 md:pb-6 text-xs md:text-sm text-white pt-0">You can contact us via phone, email, or through the contact form on our website.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let activeIndex = null
+    const faqItems = document.querySelectorAll('.faq-item')
+    const answerSections = document.querySelectorAll('.answer-section')
+    const icons = document.querySelectorAll('.faq-item span svg')
+    
+    // FAQ data
+    const faqs = [
+      {
+        question: "How can I view a property I'm interested in?",
+        answer: "You can contact our agent to schedule a property viewing. We'll arrange a time that's convenient for both you and the property owner."
+      },
+      {
+        question: 'Does BuildingBlocks offer free consultations?',
+        answer: 'Yes, BuildingBlocks offers free initial consultations to understand your requirements and guide you through the process.'
+      },
+      {
+        question: 'How long does it take to sell a property?',
+        answer: 'The timeline depends on market conditions, pricing, and location. On average, properties sell within a few weeks to a few months.'
+      },
+      {
+        question: 'What is the process for buying property?',
+        answer: 'The process includes consultation, property selection, legal verification, agreement signing, and final registration.'
+      },
+      {
+        question: 'How can I contact BuildingBlocks Real Estate?',
+        answer: 'You can contact us via phone, email, or through the contact form on our website.'
+      }
+    ]
+    
+    // Store heights for each answer
+    const answerHeights = []
+    
+    // Calculate and store initial heights
+    function calculateHeights() {
+      answerSections.forEach((section, index) => {
+        // Temporarily set to auto to get actual height
+        section.style.maxHeight = 'none'
+        const height = section.scrollHeight
+        answerHeights[index] = height
+        // Reset to initial state
+        section.style.maxHeight = '0px'
+      })
+    }
+    
+    // Toggle FAQ item
+    function toggleFAQ(index) {
+      const faqItem = faqItems[index]
+      const answerSection = answerSections[index]
+      const icon = icons[index]
+    
+      // If clicking the active item, close it
+      if (activeIndex === index) {
+        // Close current item
+        faqItem.classList.remove('bg-black', 'text-white')
+        faqItem.classList.add('bg-white', 'text-black', 'hover:bg-gray-50')
+    
+        answerSection.style.maxHeight = '0px'
+        answerSection.style.opacity = '0'
+        answerSection.style.transform = 'translateY(-10px)'
+    
+        // Change icon to down
+        icon.innerHTML = '<path d="m6 9 6 6 6-6" />'
+        icon.parentElement.classList.remove('scale-110')
+        icon.parentElement.classList.add('text-gray-400')
+    
+        activeIndex = null
+      } else {
+        // Close previously active item if exists
+        if (activeIndex !== null) {
+          const prevFaqItem = faqItems[activeIndex]
+          const prevAnswerSection = answerSections[activeIndex]
+          const prevIcon = icons[activeIndex]
+    
+          prevFaqItem.classList.remove('bg-black', 'text-white')
+          prevFaqItem.classList.add('bg-white', 'text-black', 'hover:bg-gray-50')
+    
+          prevAnswerSection.style.maxHeight = '0px'
+          prevAnswerSection.style.opacity = '0'
+          prevAnswerSection.style.transform = 'translateY(-10px)'
+    
+          prevIcon.innerHTML = '<path d="m6 9 6 6 6-6" />'
+          prevIcon.parentElement.classList.remove('scale-110')
+          prevIcon.parentElement.classList.add('text-gray-400')
+        }
+    
+        // Open clicked item
+        faqItem.classList.remove('bg-white', 'text-black', 'hover:bg-gray-50')
+        faqItem.classList.add('bg-black', 'text-white')
+    
+        answerSection.style.maxHeight = answerHeights[index] + 'px'
+        answerSection.style.opacity = '1'
+        answerSection.style.transform = 'translateY(0px)'
+    
+        // Change icon to up
+        icon.innerHTML = '<path d="m18 15-6-6-6 6" />'
+        icon.parentElement.classList.add('scale-110', 'text-white')
+        icon.parentElement.classList.remove('text-gray-400')
+    
+        activeIndex = index
+      }
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      calculateHeights()
+    
+      // Recalculate heights on window resize
+      window.addEventListener('resize', calculateHeights)
+    })
+  </script>
+
+  <script>
+    // Custom Tailwind Configuration
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#FDFDFB',
+            charcoal: '#1A1A1A',
+            'soft-gold': '#C0A067',
+            'dark-gold': '#A78B58',
+            'light-gray': '#F5F5F5'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            display: ['Playfair Display', 'serif']
+          }
+        }
+      }
+    }
+    
+    module.exports = {
+      theme: {
+        extend: {
+          keyframes: {
+            about: {
+              '0%': {
+                opacity: '0',
+                transform: 'translateY(40px)'
+              },
+              '50%': {
+                opacity: '1',
+                transform: 'translateY(0)'
+              },
+              '100%': {
+                opacity: '0',
+                transform: 'translateY(-20px)'
+              }
+            }
+          },
+          animation: {
+            about: 'about 2.5s ease-in-out forwards'
+          }
+        }
+      }
+    }
+  </script>
+
+  <script>
+    let current = 0
+    const slides = document.querySelectorAll('.slide')
+    
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.style.opacity = i === index ? '1' : '0'
+        slide.style.transition = 'opacity 1s ease'
+      })
+    }
+    
+    function nextSlide() {
+      current = (current + 1) % slides.length
+      showSlide(current)
+    }
+    
+    function prevSlide() {
+      current = (current - 1 + slides.length) % slides.length
+      showSlide(current)
+    }
+    
+    setInterval(nextSlide, 10000)
+  </script>
+
+  <script>
+    const video = document.getElementById('heroVideo')
+    video.playbackRate = 2.5
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const text = 'ABOUT US'
+      const typingEl = document.getElementById('typingText')
+      const cursor = document.getElementById('cursor')
+    
+      let index = 0
+      const speed = 120 // typing speed
+    
+      function type() {
+        if (index < text.length) {
+          typingEl.textContent += text.charAt(index)
+          index++
+          setTimeout(type, speed)
+        } else {
+          // Stop cursor blink
+          cursor.classList.add('hidden')
+    
+          // Fade out after typing finishes
+          setTimeout(() => {
+            typingEl.classList.add('transition-opacity', 'duration-1000', 'opacity-0')
+          }, 800)
+    
+          // Remove completely
+          setTimeout(() => {
+            typingEl.parentElement.classList.add('hidden')
+          }, 1800)
+        }
+      }
+    
+      type()
+    })
+  </script>
+{% endblock %}
