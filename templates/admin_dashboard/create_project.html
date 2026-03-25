@@ -383,19 +383,19 @@ function toggleFloorPlan() {
     var plotSection = document.getElementById("plotSection");
     
     if (projectType === "apartment") {
-        floorSection.style.display = "none";
+        floorSection.style.display = "block";
         unitSection.style.display = "block";
         plotSection.style.display = "none";
     } 
    
     else if (projectType === "plot") {
-        floorSection.style.display = "block";
+        floorSection.style.display = "none";
         unitSection.style.display = "none";
         plotSection.style.display = "block";
     } 
 
     else {
-        floorSection.style.display = "block";
+        floorSection.style.display = "none";
         unitSection.style.display = "block";
         plotSection.style.display = "none";
     }
