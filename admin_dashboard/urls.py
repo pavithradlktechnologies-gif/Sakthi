@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin_login',admin_login, name='admin_login'),
     path('admin_logout',admin_logout,name="admin_logout"),
     path('update-receiver-email',update_receiver_email, name='update_receiver_email'),
+    path('test-500/', trigger_error,name='trigger_error'),
 
     # Video section
     path("video",video,name="video"),

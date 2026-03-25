@@ -2,232 +2,271 @@
 {% load static %}
 {% load humanize %}
 {% block content %}
-  <style>
-    .lg-sub-html {
-      background: white !important;
-      padding: 20px !important;
-      border-radius: 10px;
-      color: black;
-      max-width: 700px;
-      margin: auto;
-    }
-    
-    .lg-sub-html h4 {
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-  </style>
-  <!-- ===== Hero Section ===== -->
-  <section class="min-h-screen lg:min-h-[100vh] flex items-end relative overflow-hidden">
-    <!-- Background Video -->
-    <div class="absolute inset-0 z-0 overflow-hidden">
-      <video class="w-full h-full object-cover object-center" autoplay muted loop playsinline preload="auto" poster="https://your-cdn.com/hero-poster.webp">
-        <source src="{{ data.project_video.url }}" type="video/mp4" />
-      </video>
+<style>
+  .lg-sub-html {
+    background: white !important;
+    padding: 20px !important;
+    border-radius: 10px;
+    color: black;
+    max-width: 700px;
+    margin: auto;
+  }
 
-      <!-- Gradient Overlay -->
-      <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+  .lg-sub-html h4 {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+</style>
+<!-- ===== Hero Section ===== -->
+<section class="min-h-screen lg:min-h-[100vh] flex items-end relative overflow-hidden">
+  <!-- Background Video -->
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <video class="w-full h-full object-cover object-center" autoplay muted loop playsinline preload="auto"
+      poster="https://your-cdn.com/hero-poster.webp">
+      <source src="{{ data.project_video.url }}" type="video/mp4" />
+    </video>
+
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+  </div>
+
+  <!-- Sakthi Property at Top - Fixed position immediately when scrolling starts -->
+  <div id="topBrand"
+    class="text-base md:text-lg font-medium tracking-widest uppercase transition-all duration-300 absolute top-4 left-0 right-0 z-30 flex justify-center opacity-100">
+    <a href="index.html" class="flex justify-center"><img class="w-30 h-10" id="logo2"
+        src="{% static 'images/logo_home.webp' %}" alt="Sakthi Property Logo" /></a>
+  </div>
+
+  <div class="container mx-auto px-6 pb-24 md:pb-32 lg:pb-40 relative z-10">
+    <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+      <h1 id="typingText"
+        class="font-display text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.20em] font-light text-ivory mb-6 whitespace-nowrap overflow-hidden">
+      </h1>
+      <span id="cursor" class="text-ivory animate-pulse"></span>
+    </div>
+  </div>
+
+  <!-- Bottom Nav - Stays at bottom of hero section, always visible -->
+  <div
+    class="absolute bottom-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-8 py-4 text-xs tracking-widest uppercase bg-transparent backdrop-blur-sm">
+    <!-- Left side - Hidden on mobile, shown on desktop -->
+    <div class="hidden md:flex gap-4 lg:gap-6 items-center text-ivory/80">
+      <a href="{% url 'index' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Home</a>
+      <a href="{% url 'about' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Who we
+        are</a>
+      <a href="{% url 'properties' %}"
+        class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Properties</a>
+      <a href="{% url 'services' %}"
+        class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Services</a>
+      <a href="{% url 'blogs' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Blog</a>
     </div>
 
-    <!-- Sakthi Property at Top - Fixed position immediately when scrolling starts -->
-    <div id="topBrand" class="text-base md:text-lg font-medium tracking-widest uppercase transition-all duration-300 absolute top-4 left-0 right-0 z-30 flex justify-center opacity-100">
-      <a href="index.html" class="flex justify-center"><img class="w-30 h-10" id="logo2" src="{% static 'images/logo_home.webp' %}" alt="Sakthi Property Logo" /></a>
-    </div>
+    <!-- Hamburger Icon for Bottom Nav on Mobile -->
+    <button onclick="toggleMobileMenu()" class="md:hidden flex items-center justify-center text-ivory"
+      aria-label="Open menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
 
-    <div class="container mx-auto px-6 pb-24 md:pb-32 lg:pb-40 relative z-10">
-      <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
-        <h1 id="typingText" class="font-display text-2xl md:text-4xl lg:text-5xl uppercase tracking-[0.20em] font-light text-ivory mb-6 whitespace-nowrap overflow-hidden"></h1>
-        <span id="cursor" class="text-ivory animate-pulse"></span>
+    <!-- Center - Empty space -->
+    <div class="text-lg font-medium invisible">Sakthi Property</div>
+
+    <!-- Right side - Hidden on mobile, shown on desktop -->
+    <div class="hidden md:flex gap-4 lg:gap-6 text-ivory/80">
+      <a href="{% url 'new_development' %}"
+        class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">New Development</a>
+      <a href="{% url 'contact_us' %}"
+        class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Contact Us</a>
+    </div>
+    <!-- Search Icon for Bottom Nav on Mobile -->
+    <button class="md:hidden flex items-center justify-center text-ivory" aria-label="Search">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </button>
+  </div>
+</section>
+
+<section class="py-12 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+      <!-- Main Image -->
+      <div class="lg:col-span-2 rounded-2xl overflow-hidden shadow-2xl">
+        <a data-fancybox="property-gallery" href="{{ data.image1.url }}" data-caption="Main Property Image"><img
+            src="{{ data.image1.url }}" class="w-full h-full object-cover aspect-[4/3] lg:h-[625px]" /></a>
       </div>
-    </div>
 
-    <!-- Bottom Nav - Stays at bottom of hero section, always visible -->
-    <div class="absolute bottom-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-8 py-4 text-xs tracking-widest uppercase bg-transparent backdrop-blur-sm">
-      <!-- Left side - Hidden on mobile, shown on desktop -->
-      <div class="hidden md:flex gap-4 lg:gap-6 items-center text-ivory/80">
-        <a href="{% url 'index' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Home</a>
-        <a href="{% url 'about' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Who we are</a>
-        <a href="{% url 'properties' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Properties</a>
-        <a href="{% url 'services' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Services</a>
-        <a href="{% url 'blogs' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">Blog</a>
-      </div>
-
-      <!-- Hamburger Icon for Bottom Nav on Mobile -->
-      <button onclick="toggleMobileMenu()" class="md:hidden flex items-center justify-center text-ivory" aria-label="Open menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-
-      <!-- Center - Empty space -->
-      <div class="text-lg font-medium invisible">Sakthi Property</div>
-
-      <!-- Right side - Hidden on mobile, shown on desktop -->
-      <div class="hidden md:flex gap-4 lg:gap-6 text-ivory/80">
-        <a href="{% url 'new_development' %}" class="hover:text-soft-gold transition-colors duration-300 hidden md:inline">New Development</a>
-        <a href="{% url 'contact_us' %}" class="hover:text-soft-gold transition-colors duration-300 hidden lg:inline">Contact Us</a>
-      </div>
-      <!-- Search Icon for Bottom Nav on Mobile -->
-      <button class="md:hidden flex items-center justify-center text-ivory" aria-label="Search">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </button>
-    </div>
-  </section>
-
-  <section class="py-12 bg-gray-50">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-        <!-- Main Image -->
-        <div class="lg:col-span-2 rounded-2xl overflow-hidden shadow-2xl">
-          <a data-fancybox="property-gallery" href="{{ data.image1.url }}" data-caption="Main Property Image"><img src="{{ data.image1.url }}" class="w-full h-full object-cover aspect-[4/3] lg:h-[625px]" /></a>
+      <!-- Right / Bottom Images -->
+      <div class="grid grid-cols-2 gap-4 lg:grid-cols-1 lg:gap-6">
+        <!-- Image 2 -->
+        <div class="rounded-2xl overflow-hidden shadow-2xl">
+          <a data-fancybox="property-gallery" href="{{ data.image2.url }}" data-caption="Image 2"><img
+              src="{{ data.image2.url }}" class="w-full h-full object-cover aspect-[4/3]" /></a>
         </div>
 
-        <!-- Right / Bottom Images -->
-        <div class="grid grid-cols-2 gap-4 lg:grid-cols-1 lg:gap-6">
-          <!-- Image 2 -->
-          <div class="rounded-2xl overflow-hidden shadow-2xl">
-            <a data-fancybox="property-gallery" href="{{ data.image2.url }}" data-caption="Image 2"><img src="{{ data.image2.url }}" class="w-full h-full object-cover aspect-[4/3]" /></a>
-          </div>
-
-          <!-- Image 3 -->
-          <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-            <a data-fancybox="property-gallery" href="{{ data.image3.url }}" data-caption="Image 3"><img src="{{ data.image3.url }}" class="w-full h-full object-cover aspect-[4/3]" /></a>
-          </div>
+        <!-- Image 3 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+          <a data-fancybox="property-gallery" href="{{ data.image3.url }}" data-caption="Image 3"><img
+              src="{{ data.image3.url }}" class="w-full h-full object-cover aspect-[4/3]" /></a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Discription -->
-  <section class="py-12 px-4 sm:px-6 md:px-10 lg:px-[50px]">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- LEFT CONTENT -->
-      <div class="lg:col-span-2 space-y-8">
-        <!-- HEADER -->
-        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-          <!-- LEFT CONTENT -->
-          <div>
-            <h1 class="text-3xl font-bold text-black-900">{{ data.name }}</h1>
-
-            <div class="flex flex-wrap items-center gap-2 text-md text-black-500 mt-2">
-              <i data-lucide="map-pin" class="w-4 h-4"></i>
-              <span>{{ data.full_location }}</span>
-            </div>
-          </div>
-
-          <!-- RIGHT PRICE -->
-           {% if data.price %}
-          <div class="text-right">
-            <h1 class="text-3xl font-bold text-black-900">₹ {{ data.price|intcomma }} *</h1>
-          </div>
-          {% endif %}
-        </div>
-        <a href="{{ data.brochure.url }}" download class="inline-flex items-center gap-2 mt-5 bg-black text-white px-6 py-2 rounded-lg rounded-lg text-md font-medium hover:bg-gray-800 transition"><span>Download Brochure</span></a>
-
-        <!-- DESCRIPTION -->
+<!-- Discription -->
+<section class="py-12 px-4 sm:px-6 md:px-10 lg:px-[50px]">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- LEFT CONTENT -->
+    <div class="lg:col-span-2 space-y-8">
+      <!-- HEADER -->
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        <!-- LEFT CONTENT -->
         <div>
-          <h3 class="font-semibold text-black-900 mb-2">Description:</h3>
-          <p class="text-black-600 leading-relaxed text-md">{{ data.description }}</p>
-        </div>
+          <h1 class="text-3xl font-bold text-black-900">{{ data.name }}</h1>
 
-        <section class="py-16 px-4 md:px-10 bg-white">
-          <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <!-- Sold Properties -->
-              <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
-                <p class="text-sm uppercase tracking-widest text-gray-500">Sold</p>
-
-                <h3 class="text-4xl font-semibold text-gray-900 mt-4">{{ data.sold_units|default:'-' }}</h3>
-
-                <p class="text-sm text-gray-500 mt-2">Units</p>
-              </div>
-
-              <!-- Remaining Properties -->
-              <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
-                <p class="text-sm uppercase tracking-widest text-gray-500">Total</p>
-
-                <h3 class="text-4xl font-semibold text-gray-900 mt-4">{{ data.total_units|default:'-' }}</h3>
-
-                <p class="text-sm text-gray-500 mt-2">Units</p>
-              </div>
-
-              <!-- Project Status -->
-              <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
-                <p class="text-sm uppercase tracking-widest text-gray-500">Construction Status</p>
-
-                <span class="inline-block mt-6 px-6 py-2 rounded-full text-sm font-medium bg-gray-900 text-white">{{ data.construction_status|default:'0' }}% - Completed</span>
-
-                <!-- For completed -->
-                <!-- bg-green-700 text-white → Completed -->
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- KEY FEATURES -->
-        <div>
-          <h3 class="font-semibold text-black-900 mb-3">Amenities:</h3>
-
-          <div class="border rounded-xl p-5">
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 text-md text-black-600">
-              {% for amenity in data.amenities.all %}
-                <div class="flex items-center gap-2">
-                  <i data-lucide="{{ amenity.icon }}"></i>
-                  {{ amenity.name }}
-                </div>
-              {% empty %}
-                <p>No amenities available</p>
-              {% endfor %}
-            </div>
+          <div class="flex flex-wrap items-center gap-2 text-md text-black-500 mt-2">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
+            <span>{{ data.full_location }}</span>
           </div>
         </div>
 
-        <!-- Floor Plan -->
-         {% if floor_plans %}
-        <div>
-          <h3 class="font-semibold text-black mb-3">Floor Plan</h3>
-
-          <!-- ADD ID -->
-          <div id="lightgallery" class="swiper luxurySwiper relative rounded-3xl overflow-hidden shadow-xl">
-            <div class="swiper-wrapper">
-              {% for floor in floor_plans %}
-                <div class="swiper-slide">
-                  <!-- ❤️ Popup enabled using data-fancybox -->
-                  <a data-fancybox="floor-gallery" href="{{ floor.image.url }}" data-caption="Floor Plan {{ forloop.counter }}"><img src="{{ floor.image.url }}" class="w-full h-[260px] sm:h-[400px] lg:h-[520px] object-cover cursor-pointer rounded-3xl" alt="Floor Plan" /></a>
-                </div>
-              {% endfor %}
-            </div>
-
-            <!-- Navigation -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-
-            <!-- Pagination -->
-            <div class="swiper-pagination"></div>
-          </div>
+        <!-- RIGHT PRICE -->
+        {% if data.price %}
+        <div class="text-right">
+          <h1 class="text-3xl font-bold text-black-900">₹ {{ data.price|intcomma }} *</h1>
         </div>
         {% endif %}
-        <!-- Map -->
-        <div>
-          <h3 class="font-semibold text-black-900 mb-3">Location Map</h3>
+      </div>
+      <a href="{{ data.brochure.url }}" download
+        class="inline-flex items-center gap-2 mt-5 bg-black text-white px-6 py-2 rounded-lg rounded-lg text-md font-medium hover:bg-gray-800 transition"><span>Download
+          Brochure</span></a>
 
-          {% if data.google_map_location %}
-            <div class="border rounded-xl overflow-hidden">{{ data.google_map_location|safe }}</div>
-          {% endif %}
+      <!-- DESCRIPTION -->
+      <div>
+        <h3 class="font-semibold text-black-900 mb-2">Description:</h3>
+        <p class="text-black-600 leading-relaxed text-md">{{ data.description }}</p>
+      </div>
+
+      <section class="py-16 px-4 md:px-10 bg-white">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            {% if data.project_type == "plot" %}
+            <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
+              <p class="text-sm uppercase tracking-widest text-gray-500">Total Plots</p>
+              <h3 class="text-4xl font-semibold text-gray-900 mt-4">{{ data.total_plots|default:'-' }}</h3>
+              <p class="text-sm text-gray-500 mt-2">Plots Available</p>
+            </div>
+
+            <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
+              <p class="text-sm uppercase tracking-widest text-gray-500">SQ.FT</p>
+              <h3 class="text-3xl font-semibold text-gray-900 mt-4">{{ data.sq_ft|default:'-' }}</h3>
+              <p class="text-sm text-gray-500 mt-2">Sq.Ft Range</p>
+            </div>
+
+            <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
+              <p class="text-sm uppercase tracking-widest text-gray-500">Project Status</p>
+              <span class="inline-block mt-6 px-6 py-2 rounded-full text-sm font-medium bg-gray-900 text-white">
+                {{ data.project_status|title }}
+              </span>
+              <p class="text-sm text-gray-500 mt-2">Current Stage</p>
+            </div>
+
+            {% else %}
+            <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
+              <p class="text-sm uppercase tracking-widest text-gray-500">Sold</p>
+              <h3 class="text-4xl font-semibold text-gray-900 mt-4">{{ data.sold_units|default:'-' }}</h3>
+              <p class="text-sm text-gray-500 mt-2">Units</p>
+            </div>
+
+            <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
+              <p class="text-sm uppercase tracking-widest text-gray-500">Total</p>
+              <h3 class="text-4xl font-semibold text-gray-900 mt-4">{{ data.total_units|default:'-' }}</h3>
+              <p class="text-sm text-gray-500 mt-2">Units</p>
+            </div>
+
+            <div class="border rounded-2xl p-8 text-center hover:shadow-md transition">
+              <p class="text-sm uppercase tracking-widest text-gray-500">Construction Status</p>
+              <span class="inline-block mt-6 px-6 py-2 rounded-full text-sm font-medium bg-gray-900 text-white">
+                {{ data.construction_status|default:'0' }}% - Completed
+              </span>
+            </div>
+            {% endif %}
+
+          </div>
         </div>
-        <h3 class="font-semibold text-black-900 mb-3">Location Advantages</h3>
-        <section class="bg-[#0b2b4b] py-16 px-4" style="border-radius: 20px;">
-          <div class="max-w-5xl mx-auto">
-            <div class="relative">
-              <!-- CENTER ROAD -->
-              <div class="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2 border-l-4 border-dashed border-white/70"></div>
+      </section>
 
-              {% for category, items in grouped_advantages.items %}
-                <div class="relative flex flex-col md:flex-row {% if forloop.counter|divisibleby:2 %}md:flex-row-reverse{% endif %} items-center mb-10">
-                  <!-- TEXT -->
-                  <div class="md:w-1/2 {% if forloop.counter|divisibleby:2 %}
+      <!-- KEY FEATURES -->
+      <div>
+        <h3 class="font-semibold text-black-900 mb-3">Amenities:</h3>
+
+        <div class="border rounded-xl p-5">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 text-md text-black-600">
+            {% for amenity in data.amenities.all %}
+            <div class="flex items-center gap-2">
+              <i data-lucide="{{ amenity.icon }}"></i>
+              {{ amenity.name }}
+            </div>
+            {% empty %}
+            <p>No amenities available</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Floor Plan -->
+      {% if floor_plans %}
+      <div>
+        <h3 class="font-semibold text-black mb-3">Floor Plan</h3>
+
+        <!-- ADD ID -->
+        <div id="lightgallery" class="swiper luxurySwiper relative rounded-3xl overflow-hidden shadow-xl">
+          <div class="swiper-wrapper">
+            {% for floor in floor_plans %}
+            <div class="swiper-slide">
+              <!-- ❤️ Popup enabled using data-fancybox -->
+              <a data-fancybox="floor-gallery" href="{{ floor.image.url }}"
+                data-caption="Floor Plan {{ forloop.counter }}"><img src="{{ floor.image.url }}"
+                  class="w-full h-[260px] sm:h-[400px] lg:h-[520px] object-cover cursor-pointer rounded-3xl"
+                  alt="Floor Plan" /></a>
+            </div>
+            {% endfor %}
+          </div>
+
+          <!-- Navigation -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+          <!-- Pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      {% endif %}
+      <!-- Map -->
+      <div>
+        <h3 class="font-semibold text-black-900 mb-3">Location Map</h3>
+
+        {% if data.google_map_location %}
+        <div class="border rounded-xl overflow-hidden">{{ data.google_map_location|safe }}</div>
+        {% endif %}
+      </div>
+      <h3 class="font-semibold text-black-900 mb-3">Location Advantages</h3>
+      <section class="bg-[#0b2b4b] py-16 px-4" style="border-radius: 20px;">
+        <div class="max-w-5xl mx-auto">
+          <div class="relative">
+            <!-- CENTER ROAD -->
+            <div class="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2 border-l-4 border-dashed border-white/70">
+            </div>
+
+            {% for category, items in grouped_advantages.items %}
+            <div
+              class="relative flex flex-col md:flex-row {% if forloop.counter|divisibleby:2 %}md:flex-row-reverse{% endif %} items-center mb-10">
+              <!-- TEXT -->
+              <div class="md:w-1/2 {% if forloop.counter|divisibleby:2 %}
                       
                       
                       
@@ -252,245 +291,241 @@
 
 
                     {% endif %} text-white">
-                    <h3 class="text-xl font-semibold mb-2">{{ category.name }}</h3>
+                <h3 class="text-xl font-semibold mb-2">{{ category.name }}</h3>
 
-                    <p class="text-white/80 text-sm leading-relaxed">
-                      {% for adv in items %}
-                        {{ adv.title }} – {{ adv.distance }}<br />
-                      {% endfor %}
-                    </p>
-                  </div>
-
-                  <!-- ICON -->
-                  <div class="z-10 flex items-center justify-center w-20 h-20 bg-[#0b2b4b] border-4 border-white rounded-full">
-                    <i data-lucide="{{ category.icon|default:'map-pin' }}" class="w-8 h-8 text-white"></i>
-                  </div>
-
-                  <div class="md:w-1/2 hidden md:block"></div>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
-        </section>
-
-        <script>
-          lucide.createIcons()
-        </script>
-      </div>
-
-      <!-- RIGHT SIDEBAR -->
-      <div class="relative">
-        <!-- STICKY CONTAINER -->
-        <div class="sticky top-1/3 -translate-y-1/5 space-y-6">
-          <!-- SCHEDULE TOUR -->
-          <div class="bg-gray-100 rounded-2xl shadow p-6">
-            <h2 class="font-semibold mb-2 text-2xl">Ask our experts to call back</h2>
-
-            <p class="text-md text-black-500 mb-4">See your future home up close — book a tour with Real Nest today.</p>
-
-<form method="POST" id="enquiryForm" onsubmit="return validateForm()">
-    {% csrf_token %}
-
-    <div class="space-y-3 text-md">
-        <input id="full_name" name="full_name" class="w-full border rounded-lg px-3 py-2" placeholder="Full Name" required />
-
-        <input id="email" name="email" type="email"
-               class="w-full border rounded-lg px-3 py-2"
-               placeholder="Email" required />
-
-        <input id="mobile" name="mobile" class="w-full border rounded-lg px-3 py-2"
-               placeholder="Mobile Number" required />
-
-        <input id="budget" name="budget" class="w-full border rounded-lg px-3 py-2"
-               placeholder="Your Budget" required />
-
-        <button class="mt-5 w-full bg-black text-white py-2 rounded-lg text-md font-medium hover:bg-gray-800 transition">
-            Submit Enquiry
-        </button>
-    </div>
-</form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Glalary section -->
-  <section class="bg-[#f6f7f8] py-16 px-4">
-<div class="max-w-7xl mx-auto">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-    {% if gallery|length > 0 %}
-      <div onclick="Fancybox.show(galleryData, { startIndex: 0 })"
-           class="cursor-pointer">
-        <img src="{{ gallery.0.image.url }}" 
-             class="rounded-3xl w-full h-full object-cover" />
-      </div>
-    {% endif %}
-
-    <div class="flex flex-col gap-6">
-
-      {% if gallery|length > 1 %}
-        <div onclick="Fancybox.show(galleryData, { startIndex: 1 })"
-             class="cursor-pointer">
-          <img src="{{ gallery.1.image.url }}" 
-               class="rounded-3xl" />
-        </div>
-      {% endif %}
-
-      <div class="grid grid-cols-2 gap-6">
-
-        {% if gallery|length > 2 %}
-          <div onclick="Fancybox.show(galleryData, { startIndex: 2 })"
-               class="cursor-pointer">
-            <img src="{{ gallery.2.image.url }}" 
-                 class="rounded-3xl" />
-          </div>
-        {% endif %}
-
-        {% if gallery|length > 3 %}
-          <div onclick="Fancybox.show(galleryData, { startIndex: 3 })"
-               class="relative cursor-pointer">
-            <img src="{{ gallery.3.image.url }}" 
-                 class="rounded-3xl" />
-
-            {% if gallery|length > 4 %}
-              <div class="absolute inset-0 bg-black/60 flex items-center justify-center rounded-3xl">
-                <span class="text-white text-xl font-bold">+{{ gallery|length|add:'-4' }}</span>
+                <p class="text-white/80 text-sm leading-relaxed">
+                  {% for adv in items %}
+                  {{ adv.title }} – {{ adv.distance }}<br />
+                  {% endfor %}
+                </p>
               </div>
-            {% endif %}
-          </div>
-        {% endif %}
 
+              <!-- ICON -->
+              <div
+                class="z-10 flex items-center justify-center w-20 h-20 bg-[#0b2b4b] border-4 border-white rounded-full">
+                <i data-lucide="{{ category.icon|default:'map-pin' }}" class="w-8 h-8 text-white"></i>
+              </div>
+
+              <div class="md:w-1/2 hidden md:block"></div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <script>
+        lucide.createIcons()
+      </script>
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="relative">
+      <!-- STICKY CONTAINER -->
+      <div class="sticky top-1/3 -translate-y-1/5 space-y-6">
+        <!-- SCHEDULE TOUR -->
+        <div class="bg-gray-100 rounded-2xl shadow p-6">
+          <h2 class="font-semibold mb-2 text-2xl">Ask our experts to call back</h2>
+
+          <p class="text-md text-black-500 mb-4">See your future home up close — book a tour with Real Nest today.</p>
+
+          <form method="POST" id="enquiryForm" onsubmit="return validateForm()">
+            {% csrf_token %}
+
+            <div class="space-y-3 text-md">
+              <input id="full_name" name="full_name" class="w-full border rounded-lg px-3 py-2" placeholder="Full Name"
+                required />
+
+              <input id="email" name="email" type="email" class="w-full border rounded-lg px-3 py-2" placeholder="Email"
+                required />
+
+              <input id="mobile" name="mobile" class="w-full border rounded-lg px-3 py-2" placeholder="Mobile Number"
+                required />
+
+              <input id="budget" name="budget" class="w-full border rounded-lg px-3 py-2" placeholder="Your Budget"
+                required />
+
+              <button
+                class="mt-5 w-full bg-black text-white py-2 rounded-lg text-md font-medium hover:bg-gray-800 transition">
+                Submit Enquiry
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
-  </section>
-  <!-- ==== Sustainable ==== -->
+</section>
 
-  <section class="relative w-full h-screen overflow-hidden bg-black">
-    <!-- Background Video -->
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-      <source src="{% static 'videos/sustainable.mp4' %}" type="video/mp4" />
-    </video>
+<!-- Glalary section -->
+<section class="bg-[#f6f7f8] py-16 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <!-- Dark Luxury Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/20"></div>
+      {% if gallery|length > 0 %}
+      <div onclick="Fancybox.show(galleryData, { startIndex: 0 })" class="cursor-pointer">
+        <img src="{{ gallery.0.image.url }}" class="rounded-3xl w-full h-full object-cover" />
+      </div>
+      {% endif %}
 
-    <!-- Content -->
-    <div class="relative z-10 h-full flex items-center">
-      <div class="max-w-7xl mx-auto px-6 w-full">
-        <div class="max-w-3xl">
-          <h1 class="text-4xl md:text-6xl font-light text-white leading-tight mb-8">
-            This Is More Than A Home
-            <span class="block font-semibold">It’s A Sustainable Future</span>
-          </h1>
+      <div class="flex flex-col gap-6">
 
-          <p class="text-white/75 text-lg md:text-xl max-w-2xl mb-10">Designed for families who value responsible living, lasting quality, and a healthier tomorrow. Where thoughtful design meets eco-conscious choices and every space supports a balanced, sustainable lifestyle.</p>
+        {% if gallery|length > 1 %}
+        <div onclick="Fancybox.show(galleryData, { startIndex: 1 })" class="cursor-pointer">
+          <img src="{{ gallery.1.image.url }}" class="rounded-3xl" />
+        </div>
+        {% endif %}
+
+        <div class="grid grid-cols-2 gap-6">
+
+          {% if gallery|length > 2 %}
+          <div onclick="Fancybox.show(galleryData, { startIndex: 2 })" class="cursor-pointer">
+            <img src="{{ gallery.2.image.url }}" class="rounded-3xl" />
+          </div>
+          {% endif %}
+
+          {% if gallery|length > 3 %}
+          <div onclick="Fancybox.show(galleryData, { startIndex: 3 })" class="relative cursor-pointer">
+            <img src="{{ gallery.3.image.url }}" class="rounded-3xl" />
+
+            {% if gallery|length > 4 %}
+            <div class="absolute inset-0 bg-black/60 flex items-center justify-center rounded-3xl">
+              <span class="text-white text-xl font-bold">+{{ gallery|length|add:'-4' }}</span>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+<!-- ==== Sustainable ==== -->
 
-  <script>
-    Fancybox.bind("[data-fancybox='floor-gallery']", {
-      Toolbar: {
-        display: ['zoom', 'fullscreen', 'slideshow', 'close']
+<section class="relative w-full h-screen overflow-hidden bg-black">
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+    <source src="{% static 'videos/sustainable.mp4' %}" type="video/mp4" />
+  </video>
+
+  <!-- Dark Luxury Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/20"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 h-full flex items-center">
+    <div class="max-w-7xl mx-auto px-6 w-full">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-6xl font-light text-white leading-tight mb-8">
+          This Is More Than A Home
+          <span class="block font-semibold">It’s A Sustainable Future</span>
+        </h1>
+
+        <p class="text-white/75 text-lg md:text-xl max-w-2xl mb-10">Designed for families who value responsible living,
+          lasting quality, and a healthier tomorrow. Where thoughtful design meets eco-conscious choices and every space
+          supports a balanced, sustainable lifestyle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  Fancybox.bind("[data-fancybox='floor-gallery']", {
+    Toolbar: {
+      display: ['zoom', 'fullscreen', 'slideshow', 'close']
+    },
+    Thumbs: {
+      autoStart: true
+    }
+  })
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('.luxurySwiper', {
+      loop: true,
+      spaceBetween: 20,
+
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false
       },
-      Thumbs: {
-        autoStart: true
-      }
-    })
-  </script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      new Swiper('.luxurySwiper', {
-        loop: true,
-        spaceBetween: 20,
-    
-        autoplay: {
-          delay: 3000,
-          disableOnInteraction: false
-        },
-    
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-    
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        },
-    
-        breakpoints: {
-          640: {
-            slidesPerView: 1
-          },
-          1024: {
-            slidesPerView: 1
-          }
-        }
-      })
-    })
-  </script>
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const text = '{{ data.location }}'
-      const typingEl = document.getElementById('typingText')
-      const cursor = document.getElementById('cursor')
-    
-      let index = 0
-      const speed = 120 // typing speed
-    
-      function type() {
-        if (index < text.length) {
-          typingEl.textContent += text.charAt(index)
-          index++
-          setTimeout(type, speed)
-        } else {
-          // Stop cursor blink
-          cursor.classList.add('hidden')
-    
-          // Fade out after typing finishes
-          setTimeout(() => {
-            typingEl.classList.add('transition-opacity', 'duration-1000', 'opacity-0')
-          }, 800)
-    
-          // Remove completely
-          setTimeout(() => {
-            typingEl.parentElement.classList.add('hidden')
-          }, 1800)
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+
+      breakpoints: {
+        640: {
+          slidesPerView: 1
+        },
+        1024: {
+          slidesPerView: 1
         }
       }
-    
-      type()
     })
-  </script>
-  <script>
-    Fancybox.bind("[data-fancybox='gallery']", {
-      Toolbar: {
-        display: ['zoom', 'fullscreen', 'close']
-      }
-    })
-  </script>
+  })
+</script>
 
-  <script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const text = '{{ data.location }}'
+    const typingEl = document.getElementById('typingText')
+    const cursor = document.getElementById('cursor')
+
+    let index = 0
+    const speed = 120 // typing speed
+
+    function type() {
+      if (index < text.length) {
+        typingEl.textContent += text.charAt(index)
+        index++
+        setTimeout(type, speed)
+      } else {
+        // Stop cursor blink
+        cursor.classList.add('hidden')
+
+        // Fade out after typing finishes
+        setTimeout(() => {
+          typingEl.classList.add('transition-opacity', 'duration-1000', 'opacity-0')
+        }, 800)
+
+        // Remove completely
+        setTimeout(() => {
+          typingEl.parentElement.classList.add('hidden')
+        }, 1800)
+      }
+    }
+
+    type()
+  })
+</script>
+<script>
+  Fancybox.bind("[data-fancybox='gallery']", {
+    Toolbar: {
+      display: ['zoom', 'fullscreen', 'close']
+    }
+  })
+</script>
+
+<script>
   const galleryData = [
     {% for img in gallery %}
-      {
-        src: "{{ img.image.url }}",
-        thumb: "{{ img.image.url }}",
+  {
+    src: "{{ img.image.url }}",
+      thumb: "{{ img.image.url }}",
       },
-    {% endfor %}
+  {% endfor %}
   ];
 </script>
 
 <script>
-function validateForm() {
+  function validateForm() {
 
     let name = document.getElementById("full_name").value.trim();
     let email = document.getElementById("email").value.trim();
@@ -504,29 +539,29 @@ function validateForm() {
     let mobilePattern = /^[0-9]{10}$/;
 
     if (name.length < 3) {
-        alert("Full name must be at least 3 characters.");
-        return false;
+      alert("Full name must be at least 3 characters.");
+      return false;
     }
 
     if (!emailPattern.test(email)) {
-        alert("Please enter a valid email address.");
-        return false;
+      alert("Please enter a valid email address.");
+      return false;
     }
 
     if (!mobilePattern.test(mobile)) {
-        alert("Mobile number must be 10 digits.");
-        return false;
+      alert("Mobile number must be 10 digits.");
+      return false;
     }
 
     if (budget === "") {
-        alert("Please enter your budget.");
-        return false;
+      alert("Please enter your budget.");
+      return false;
     }
 
     // If everything is correct → show success message
     alert("Your enquiry has been submitted successfully!");
 
     return true; // allow form submission
-}
+  }
 </script>
 {% endblock %}

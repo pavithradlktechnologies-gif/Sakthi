@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+ 
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background:  #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+ 
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+ 
+        .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+ 
+        .property-img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+ 
+        h1 {
+            font-size: 72px;
+            margin: 0;
+            color: #007bff;
+        }
+ 
+        h2 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+ 
+        p {
+            font-size: 16px;
+            margin: 15px 0 25px;
+            color: #666;
+        }
+ 
+        a {
+            display: inline-block;
+            text-decoration: none;
+            background: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+ 
+        a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+ 
+    <div class="container">
+ 
+        <!-- Real Estate Image -->
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa"
+             alt="Property"
+             class="property-img">
+ 
+        <!-- House Icon -->
+        <!-- <div class="icon">🏠</div> -->
+ 
+        <h1>404</h1>
+        <h2>Property Not Found</h2>
+        <p>Oops! The property or page you are looking for does not exist or has been moved.</p>
+ 
+        <a href="{% url 'index' %}">Go to Home</a>
+    </div>
+ 
+</body>
+</html>

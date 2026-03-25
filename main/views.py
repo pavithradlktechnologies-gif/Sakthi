@@ -3,6 +3,17 @@ from admin_dashboard.models import *
 from collections import defaultdict
 from .forms import *
 from django.http import JsonResponse
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from datetime import datetime
+from django.utils import timezone
+
+import os
+import ssl
+
+if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)):
+    ssl._create_default_https_context = ssl._create_unverified_context
 
 def index(request):
     data = Project.objects.all().order_by('order')[:6]
@@ -35,7 +46,33 @@ def view_properties(request, id):
             mobile_number=mobile,
             budget=budget
         )
+        try:
+            subject = 'Enquiry Received - Sakthi Property'
+            from_email = 'pavithra.dlktechnologies@gmail.com' # Verified email inga kudunga
+            to_email = [email]
+
+            context = {
+                'full_name': full_name,
+                'project_name': data.project_name, # Model-la project_name nu irukka nu check pannunga
+                'budget': budget,
+                'enquiry_date': datetime.now().strftime("%d-%m-%Y"),
+                'mobile_number': mobile,
+                'email': email,
+                'message': "", # View properties form-la message illana empty-ah vidalam
+            }
+
+            html_content = render_to_string('main/enquiry_email.html', context)
+            text_content = strip_tags(html_content)
+
+            msg = EmailMultiAlternatives(subject, text_content, from_email, to_email)
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+            
+        except Exception as e:
+            print(f"Enquiry Email Error: {e}")
+
         return redirect("view_properties", id=id)
+   
 
     amenities = Amenity.objects.filter(project=data)
     floor_plans = FloorPlan.objects.filter(project=data)
@@ -93,19 +130,39 @@ def contact_us(request):
                 budget="N/A"
             )
 
+            try:
+                subject = 'Thank You for Reaching Out! - Sakthi Property'
+                from_email = 'pavithra.dlktechnologies@gmail.com'
+                to_email = [email]
+
+                context = {
+                    'name': name,
+                    'project_name': str(project_obj) if project_obj else "General Enquiry",
+                    'email': email,
+                    'phone': phone,
+                    'message': message,
+                    'contact_date': timezone.now().strftime("%d-%m-%Y"),
+                }
+
+                html_content = render_to_string('main/contact_email.html', context)
+                text_content = strip_tags(html_content)
+
+                msg = EmailMultiAlternatives(subject, text_content, from_email, to_email)
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+            except Exception as e:
+                print(f"Contact Email Error: {e}")
+
             return render(request, "main/contact_us.html", {
                 "form": ContactForm(),
                 "message": True
             })
         else:
-            print("=============", form.errors)
+            print("Form Errors:", form.errors)
     else:
         form = ContactForm()
 
     return render(request, "main/contact_us.html", {"form": form})
-
-    
-
 def careers(request):
     jobs = Career.objects.filter(status="active").order_by('-posted_date')
     return render(request, "main/career.html", {"jobs": jobs})
@@ -125,13 +182,11 @@ def apply_job(request, job_id):
         notice_period = request.POST.get("notice_period")
         resume = request.FILES.get("resume")
 
-        # Basic validation
         if not all([full_name, email, phone, current_location, professional_details,
                     total_experience, highest_qualification, resume]):
             return redirect("apply_job", job_id=job_id)
 
-        # Save form
-        JobApplication.objects.create(
+        application = JobApplication.objects.create(
             job=job,
             full_name=full_name,
             email=email,
@@ -143,6 +198,27 @@ def apply_job(request, job_id):
             notice_period=notice_period,
             resume=resume
         )
+
+        try:
+            subject = 'Application Received - Sakthi Property'
+            from_email = 'pavithra.dlktechnologies@gmail.com'
+            to_email = [email]
+
+            context = {
+                'full_name': full_name,
+                'job_title': job.title,
+                'applied_on': application.applied_on.strftime("%d-%m-%Y"),
+                'application_id': f"SPJ{application.id:04d}",
+            }
+
+            html_content = render_to_string('main/job_email.html', context)
+            text_content = strip_tags(html_content)
+
+            msg = EmailMultiAlternatives(subject, text_content, from_email, to_email)
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+        except Exception as e:
+            print(f"Email Error: {e}")
 
         return redirect("careers")
 

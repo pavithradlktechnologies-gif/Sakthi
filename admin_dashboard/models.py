@@ -63,8 +63,8 @@ class Project(models.Model):
     total_units = models.PositiveIntegerField(null=True, blank=True)
     sold_units = models.PositiveIntegerField(null=True, blank=True)
 
-    construction_status = models.PositiveIntegerField(
-        help_text="Enter percentage (0–100)",
+    construction_status = models.CharField(
+        max_length=30,
         null=True,
         blank=True
     )
@@ -83,6 +83,8 @@ class Project(models.Model):
     # Amenities (Many-to-Many via FK model)
     amenities = models.ManyToManyField(Amenity, blank=True)
     order = models.PositiveIntegerField(default=0)
+    total_plots = models.IntegerField(null=True, blank=True)
+    sq_ft = models.CharField(max_length=100, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:

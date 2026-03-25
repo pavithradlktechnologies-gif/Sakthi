@@ -48,11 +48,11 @@
     </option>
     
     <option value="form_land" {% if project.project_type == "form_land" %}selected{% endif %}>
-        Form Land
+        Farm Land
     </option>
     
     <option value="form_house" {% if project.project_type == "form_house" %}selected{% endif %}>
-        Form House
+        Farm House
     </option>
 </select>
 </div>
@@ -91,8 +91,8 @@
 <label class="form-label">Description </label>
 <textarea name="description" rows="5" class="form-control" required>{{ project.description|default:'' }}</textarea>
 </div>
-
-<div class="row g-3 mt-3">
+<div id="unitSection">
+ <div class="row g-3 mt-3">
 
   <!-- TOTAL UNITS -->
   <div class="col-md-4">
@@ -114,7 +114,20 @@
     <input type="number" name="construction_status" class="form-control"
            value="{{ project.construction_status|default:'' }}" required>
   </div>
+ </div>
 
+</div>
+<div id="plotSection" style="display: none;">
+    <div class="row g-3 mt-3">
+        <div class="col-md-6">
+            <label>Total Plots&nbsp;<span style="color: red;">*</span></label>
+            <input type="number" name="total_plots" class="form-control" value="{{ project.total_plots|default:'' }}">
+        </div>
+        <div class="col-md-6">
+            <label>Sq.ft Range (e.g., 770 to 1300)&nbsp;<span style="color: red;">*</span></label>
+            <input type="text" name="sq_ft" class="form-control" value="{{ project.sq_ft|default:'' }}">
+        </div>
+    </div>
 </div>
 
 <!-- Video -->
@@ -366,11 +379,25 @@ function removeRow(btn){
 function toggleFloorPlan() {
     var projectType = document.getElementById("projectTypeSelect").value;
     var floorSection = document.getElementById("floorPlanSection");
+    var unitSection = document.getElementById("unitSection");
+    var plotSection = document.getElementById("plotSection");
     
     if (projectType === "apartment") {
-        floorSection.style.display = "block";
-    } else {
         floorSection.style.display = "none";
+        unitSection.style.display = "block";
+        plotSection.style.display = "none";
+    } 
+   
+    else if (projectType === "plot") {
+        floorSection.style.display = "block";
+        unitSection.style.display = "none";
+        plotSection.style.display = "block";
+    } 
+
+    else {
+        floorSection.style.display = "block";
+        unitSection.style.display = "block";
+        plotSection.style.display = "none";
     }
 }
 

@@ -11,7 +11,10 @@ from django.contrib.auth.decorators import user_passes_test
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+def trigger_error(request):
+    # This will cause a ZeroDivisionError, which results in a 500 error
+    division_by_zero = 1 / 0
+    return HttpResponse("This will never be seen")
 @csrf_exempt
 def update_project_order(request):
     if request.method == "POST":
@@ -90,6 +93,8 @@ def create_project(request):
             total_units=request.POST.get('total_units'),
             sold_units=request.POST.get('sold_units'),
             construction_status=request.POST.get('construction_status'),
+            total_plots=request.POST.get('total_plots'),
+            sq_ft=request.POST.get('sq_ft'),
             project_video=request.FILES.get('project_video'),
             brochure=request.FILES.get('brochure'),
             image1=request.FILES.get('image1'),
@@ -153,6 +158,8 @@ def edit_project(request, pk):
         project.total_units = request.POST.get('total_units')
         project.sold_units = request.POST.get('sold_units')
         project.construction_status = request.POST.get('construction_status')
+        project.total_plots = request.POST.get('total_plots')
+        project.sq_ft = request.POST.get('sq_ft')
         project.google_map_location = request.POST.get('google_map_location')
 
         # IMAGE DELETE

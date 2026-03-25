@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error</title>
+ 
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+ 
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            width: 90%;
+        }
+ 
+        h1 {
+            font-size: 80px;
+            margin: 0;
+            color: #e74c3c;
+        }
+ 
+        h2 {
+            margin: 10px 0;
+            font-size: 26px;
+            color: #2c3e50;
+        }
+ 
+        p {
+            font-size: 16px;
+            color: #777;
+            margin: 20px 0;
+        }
+ 
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #27ae60;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: 0.3s;
+            margin: 5px;
+        }
+ 
+        .btn:hover {
+            background: #219150;
+        }
+ 
+        .btn-secondary {
+            background: #3498db;
+        }
+ 
+        .btn-secondary:hover {
+            background: #2c80b4;
+        }
+ 
+        .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+ 
+    <div class="container">
+        <div class="icon">🏗️</div>
+        <h1>500</h1>
+        <h2>Something Went Wrong</h2>
+        <p>
+            We’re experiencing some issues on our end. Our team is working to fix it.
+            Please try again later or explore other properties.
+        </p>
+ 
+        <a href="{%url 'index' %}" class="btn">Go to Home</a>
+        <a href="javascript:location.reload();" class="btn btn-secondary">Try Again</a>
+    </div>
+ 
+</body>
+</html>
